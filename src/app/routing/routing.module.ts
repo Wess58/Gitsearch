@@ -6,6 +6,12 @@ import { UserComponent } from '../user/user.component';
 import { NotFoundComponent } from '../not-found/not-found.component';
 import { FormsModule } from '@angular/forms';
 
+const routes: Routes = [
+  { path: 'repo', component: RepoComponent },
+  { path: 'user', component: UserComponent },
+  { path: "", redirectTo: "/repo", pathMatch: "full" },
+  { path: '**', component: NotFoundComponent }
+];
 
 @NgModule({
   imports: [
