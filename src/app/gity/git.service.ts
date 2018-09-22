@@ -15,4 +15,15 @@ export class GitService {
   }
 
 
+  getProfileInfo() {
+    return this.http.get("https://api.github.com/users/" + this.username + '?client_id=' + this.clientID + '?client_secret=' + this.clientSecret).pipe(map(res => res.json()));
+  }
+
+  getRepo() {
+    return this.http.get("https://api.github.com/users/" + this.username + '/repos?client_id=' + this.clientID + '?client_secret=' + this.clientSecret).pipe(map(res => res.json()));
+  }
+
+  updateProfile(username: string) {
+    this.username = username;
+  }
 }
