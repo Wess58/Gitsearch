@@ -1,4 +1,47 @@
-# Gitsearch
+# Gitsearch Angular App
+
+### By wesley Mbate
+
+## Description
+
+ This App is created to put to use Github's API to enable a user to search for github accounts,view certain details of an account, view repositories of that account and manoeuver to live links of repositories and github accounts on Github itself.
+
+ Here's the link to the live webpage :<https://wess58.github.io/Gitsearch/>
+
+### Prerequisites
+
+ * An up-to-date browser, preferably chrome or mozilla
+ * Git
+ * Angular CLI
+ * npm
+
+### Technologies used
+
+   * HTML
+   * CSS
+   * TYPESCRIPT
+   * bootstrap
+
+### Installation guide
+
+If your totally new to Git, here's how to go about it:
+
+Install Git on you machine
+ * --Linux Users-- Run the terminal and navigate to the location you'd like the repository in
+ * --for Windows Users-- Navigate to the location you'd want the repository located, right click and select "git bash here"
+ * Clone the repository
+ * Upon completion, navigate to the cloned repository
+
+ ALSO;
+ * follow the angular instructions BELOW.
+
+
+
+
+### LICENSE
+ This website is under the MIT license which can be found [HERE](LICENSE).
+ Copyright (c) 2018 wesleymbate
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.1.
 
