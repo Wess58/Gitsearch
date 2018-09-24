@@ -9,6 +9,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { RoutingModule } from './routing/routing.module';
 import { PriceDirective } from './price.directive';
 import { PropPipe } from './prop.pipe';
+import { NgProgressModule } from '@ngx-progressbar/core';
+import { NgProgressHttpModule } from '@ngx-progressbar/http';
 
 @NgModule({
   declarations: [
@@ -18,11 +20,14 @@ import { PropPipe } from './prop.pipe';
     NotFoundComponent,
     PriceDirective,
     PropPipe
+
   ],
   imports: [
     BrowserModule,
     HttpModule,
-    RoutingModule
+    RoutingModule,
+    NgProgressModule.forRoot(),// normal progress bar
+    NgProgressHttpModule // progress bar to load http requests
   ],
   providers: [GitService],
   bootstrap: [AppComponent]
