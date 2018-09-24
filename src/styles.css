@@ -1,2 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
+
+body {
+  background-color: #85c1e9;
+  margin: 0;
+  font-family: 'Righteous', cursive;
+}

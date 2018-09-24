@@ -1,0 +1,30 @@
+h3 {
+  font-family: 'Notable', sans-serif;
+  font-size: 50px;
+  text-align: center;
+  
+}
+
+hr {
+  width: 50%;
+}
+
+nav {
+  background-color: #3498db;
+}
+
+.home {
+  font-weight: bolder;
+}
+
+a {
+  color: black;
+  padding: 5px;
+  margin: 0;
+  transition: all .3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+a:hover {
+  background-color: white;
+  border-radius: 4px;
+}
