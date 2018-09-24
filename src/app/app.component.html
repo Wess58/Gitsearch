@@ -1,16 +1,14 @@
 <div class="container">
-<nav class="navbar navbar-expand-lg navbar-light bg-light navbar">
-  <a class="navbar-brand" href="">HOME</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-     <span class="navbar-toggler-icon"></span>
-   </button>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
-      <li>
-        <a class="nav-item nav-link" routerLink='/repo' routerLinkActive='active'>SEARCH</a>
-      </li>
-    </div>
-  </div>
-</nav>
-<router-outlet></router-outlet>
+
+  <h3>GITHUB SEARCH</h3>
+  <hr>
+
+  <nav class="navbar navbar-expand-lg ">
+    <a class="nav-item nav-link home" href="#">HOME</a>
+
+    <a class="nav-item nav-link" routerLink='/repo' routerLinkActive='active'>SEARCH</a>
+
+  </nav>
+  <router-outlet></router-outlet>
+  
 </div>
