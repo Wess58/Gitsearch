@@ -1,0 +1,87 @@
+<div class="container body">
+
+
+  <form class="form-group">
+    <div class="row">
+      <input type="text" class="form-control" placeholder="Enter username" id="user" [(ngModel)]="username" #user="ngModel" name="username" >
+      <button (click)="getRepo()"  class="btn btn-primary" >Search</button>
+    </div>
+  </form>
+
+
+
+  <div *ngIf="profile">
+
+    <h3 style="color:white;">{{profile.name}}</h3>
+    <h3>Alias: {{profile.login}}</h3>
+
+      <h5>{{profile.bio}}</h5>
+      <h5>{{profile.email}}</h5>
+
+
+    <div class="container cont1">
+      <div class="row">
+        <div class="col-md-6">
+
+          <img src= "{{profile.avatar_url}}"  alt="Profile Image">
+
+
+
+        </div>
+
+
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-4 col-lg-3">
+              <h3 >Repos</h3>
+              <br>
+              <b class="num">{{profile.public_repos}}</b>
+            </div>
+
+            <div class="col-md-4 col-lg-3">
+              <h3  >Followers</h3>
+              <br>
+              <b class="num">{{profile.followers}}</b>
+            </div>
+
+            <div class="col-md-4 col-lg-3">
+              <h3  >Following</h3>
+              <br>
+              <b class="num">{{profile.following}}</b>
+            </div>
+
+            <a href="{{profile.html_url}}" class="btn btn-outline-danger btnview" >View User on Github</a>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+    <h2 class="panel-title" class="repo">REPOSITORIES</h2>
+
+    <div class="card panel-body" *ngFor="let repo of repo" index=i>
+
+      <h3> {{repo.name}} </h3>
+      <hr>
+      <br>
+      <p> {{repo.description}} </p>
+      <p>Date created: <b>{{repo.created_at|date}}</b>
+      </p>
+      <p>Fork status: <b>{{repo.fork}}</b></p>
+          <p>Forks: <b>{{repo.forks}}</b></p>
+      <a href="{{repo.html_url}}" class="btn btn-sm btn-outline-primary" >View this project</a>
+      <a href="{{repo.homepage}}"  *ngIf="repo.homepage" class="btn btn-sm btn-success">View Live Page</a>
+      <br>
+      <br>
+        </div>
+
+
+    </div>
+    </div>
