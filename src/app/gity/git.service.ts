@@ -9,7 +9,8 @@ export class GitService {
   private username: string;
 
   constructor(private http: Http) {
-    this.username = 'Wess58';
+
+    this.username = 'wess58';
   }
 
 

@@ -12,6 +12,5 @@ export class AppComponent {
   router:Router;
   constructor(route:Router){
     this.router=route;
-
   }
 }

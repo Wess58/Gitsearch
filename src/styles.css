@@ -1,8 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~bootstrap/dist/css/bootstrap.css";
-
 body {
-  background-color: #85c1e9;
+  background-image: linear-gradient( 225deg, whitesmoke 2%, #000 2%, #000 5%, #fff 5%, #fff 8%, #000 8%, #000 11%, whitesmoke 11%);
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   margin: 0;
-  font-family: 'Righteous', cursive;
+
+  font-family: 'Baloo', cursive;
 }

@@ -1,87 +1,101 @@
-<div class="container body">
+<div class="container">
 
-
-  <form class="form-group">
-    <div class="row">
-      <input type="text" class="form-control" placeholder="Enter username" id="user" [(ngModel)]="username" #user="ngModel" name="username" >
-      <button (click)="getRepo()"  class="btn btn-primary" >Search</button>
+  <div class="wrap">
+    <div class="search">
+      <input type="text" class="searchTerm" onfocus="this.value=''" placeholder="Who are you looking for?" id="user" [(ngModel)]="username" #user="ngModel" name="username">
+      <button type="submit" class="searchButton" (click)="getRepo()">
+        <i class="fa fa-search"></i>
+      </button>
     </div>
+  </div>
+  <form class="form-group">
+
+
+
   </form>
 
 
 
-  <div *ngIf="profile">
+  <div class="row">
+    <div class="col-md-6">
+      <div *ngIf="profile" style="display:flex;justify-content:center;align-items:center;">
 
-    <h3 style="color:white;">{{profile.name}}</h3>
-    <h3>Alias: {{profile.login}}</h3>
+        <div class="card">
+          <img src="{{profile.avatar_url}}" alt="Profile Image">
+          <h3><u>{{profile.login}}</u></h3>
+          <h3>{{profile.name}}</h3>
 
-      <h5>{{profile.bio}}</h5>
-      <h5>{{profile.email}}</h5>
+          <hr>
 
-
-    <div class="container cont1">
-      <div class="row">
-        <div class="col-md-6">
-
-          <img src= "{{profile.avatar_url}}"  alt="Profile Image">
-
-
-
-        </div>
-
-
-        <div class="col-md-6">
-          <div class="row">
-            <div class="col-md-4 col-lg-3">
-              <h3 >Repos</h3>
-              <br>
-              <b class="num">{{profile.public_repos}}</b>
+          <div class="stats-holder">
+            <div class="user-stats">
+              <strong>Repositories</strong>
+              <span>{{profile.public_repos}}</span>
             </div>
-
-            <div class="col-md-4 col-lg-3">
-              <h3  >Followers</h3>
-              <br>
-              <b class="num">{{profile.followers}}</b>
+            <div class="user-stats">
+              <strong><i class="fa fa-user-circle-o"></i> &nbsp;&nbsp;Following</strong>
+              <span>{{profile.following}}</span>
             </div>
-
-            <div class="col-md-4 col-lg-3">
-              <h3  >Following</h3>
-              <br>
-              <b class="num">{{profile.following}}</b>
+            <div class="user-stats">
+              <strong><i class="fa fa-user-circle-o"></i> &nbsp;&nbsp;Followers</strong>
+              <span>{{profile.followers}}</span>
             </div>
-
-            <a href="{{profile.html_url}}" class="btn btn-outline-danger btnview" >View User on Github</a>
-
-
           </div>
+
         </div>
+
       </div>
     </div>
 
-
-
-
-
-
-
-    <h2 class="panel-title" class="repo">REPOSITORIES</h2>
-
-    <div class="card panel-body" *ngFor="let repo of repo" index=i>
-
-      <h3> {{repo.name}} </h3>
-      <hr>
-      <br>
-      <p> {{repo.description}} </p>
-      <p>Date created: <b>{{repo.created_at|date}}</b>
-      </p>
-      <p>Fork status: <b>{{repo.fork}}</b></p>
-          <p>Forks: <b>{{repo.forks}}</b></p>
-      <a href="{{repo.html_url}}" class="btn btn-sm btn-outline-primary" >View this project</a>
-      <a href="{{repo.homepage}}"  *ngIf="repo.homepage" class="btn btn-sm btn-success">View Live Page</a>
-      <br>
-      <br>
-        </div>
-
-
+    <div class="col-md-6">
+      <h5>{{profile.email}}</h5>
+      <h5><i class="fa fa-graduation-cap"></i> &nbsp;&nbsp;BIO: {{profile.bio}}</h5>
+      <h5><i class="fa fa-newspaper-o"></i><a href="{{profile.blog}}" target="_blank"> &nbsp;&nbsp;BLOG / PORTFOLIO</a></h5>
+      <h4><i class="fa fa-map-marker"></i> &nbsp;&nbsp;{{profile.location}}</h4>
+      <h5><i class="fa fa-github-square"></i> &nbsp;&nbsp;<a href="{{profile.html_url}}" target="_blank">VISIT GITHUB PROFILE</a></h5>
+      <h5><i class="fa fa-calendar"></i>&nbsp;&nbsp; {{profile.created_at}}</h5>
     </div>
-    </div>
+
+  </div>
+
+
+
+
+</div>
+
+
+<div class="container">
+  <table class="table table-hover table-bordered">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">REPO_NAME</th>
+        <th scope="col">DESCRIPTION</th>
+        <th scope="col">LANGUAGE</th>
+        <th scope="col">CREATION_DATE</th>
+        <th scope="col">FORK_STATUS</th>
+        <th scope="col">FORKS</th>
+        <th scope="col">GITHUB</th>
+        <th scope="col">LIVE_SITE</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let repo of repo" index=i>
+
+      <tr>
+        <td>{{repo.name}}</td>
+        <td scope="row">{{repo.description}}</td>
+        <td>{{repo.language}}</td>
+        <td>{{repo.created_at|date}}</td>
+        <td>{{repo.fork}}</td>
+        <td>{{repo.forks}}</td>
+        <td><a href="{{repo.html_url}}" target="_blank"><i class="fa fa-paper-plane"></i></a></td>
+        <td><a href="{{repo.homepage}}" target="_blank" *ngIf="repo.homepage"><i class="fa fa-paper-plane"></i></a></td>
+      </tr>
+
+    </tbody>
+  </table>
+
+
+
+
+
+</div>
