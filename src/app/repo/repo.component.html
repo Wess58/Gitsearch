@@ -16,9 +16,9 @@
 
 
 
-  <div class="row">
+  <div class="row" *ngIf="profile">
     <div class="col-md-6">
-      <div *ngIf="profile" style="display:flex;justify-content:center;align-items:center;">
+      <div  style="display:flex;justify-content:center;align-items:center;">
 
         <div class="card">
           <img src="{{profile.avatar_url}}" alt="Profile Image">
@@ -44,7 +44,7 @@
 
         </div>
 
-      </div>
+
     </div>
 
     <div class="col-md-6">
@@ -54,6 +54,7 @@
       <h4><i class="fa fa-map-marker"></i> &nbsp;&nbsp;{{profile.location}}</h4>
       <h5><i class="fa fa-github-square"></i> &nbsp;&nbsp;<a href="{{profile.html_url}}" target="_blank">VISIT GITHUB PROFILE</a></h5>
       <h5><i class="fa fa-calendar"></i>&nbsp;&nbsp; {{profile.created_at}}</h5>
+    </div>
     </div>
 
   </div>
