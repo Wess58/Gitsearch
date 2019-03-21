@@ -7,8 +7,7 @@ import { FormsModule } from '@angular/forms';
 
 
 const routes: Routes = [
-  { path: 'repo', component: RepoComponent },
-  { path: "", redirectTo: "/repo", pathMatch: "full" },
+
 
 ];
 
