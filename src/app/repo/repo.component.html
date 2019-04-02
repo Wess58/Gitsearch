@@ -8,12 +8,6 @@
       </button>
     </div>
   </div>
-  <form class="form-group">
-
-
-
-  </form>
-
 
 
   <div class="row" *ngIf="profile">
@@ -66,7 +60,7 @@
 </div>
 
 
-<div class="container">
+<div class=" tableCont">
   <table class="table table-hover table-bordered">
     <thead class="thead-dark">
       <tr>
@@ -83,14 +77,14 @@
     <tbody *ngFor="let repo of repo" index=i>
 
       <tr>
-        <td>{{repo.name}}</td>
+        <td><span style="text-transform: uppercase;font-size:20px;color:#000;">{{repo.name}}</span></td>
         <td scope="row">{{repo.description}}</td>
-        <td>{{repo.language}}</td>
+        <td><span class="badge badge-pill badge-info" style="padding:5px;color:#000;font-size:20px;">{{repo.language}}</span></td>
         <td>{{repo.created_at|date}}</td>
         <td>{{repo.fork}}</td>
         <td>{{repo.forks}}</td>
-        <td><a href="{{repo.html_url}}" target="_blank"><i class="fa fa-paper-plane"></i></a></td>
-        <td><a href="{{repo.homepage}}" target="_blank" *ngIf="repo.homepage"><i class="fa fa-paper-plane"></i></a></td>
+        <td><a href="{{repo.html_url}}" target="_blank"><i class="fa fa-paper-plane" id="plane1" title="Go to github"></i></a></td>
+        <td><a href="{{repo.homepage}}" target="_blank" *ngIf="repo.homepage"><i class="fa fa-paper-plane" id="livesite" title="Visit live site"></i></a></td>
       </tr>
 
     </tbody>

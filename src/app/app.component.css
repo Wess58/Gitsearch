@@ -2,8 +2,22 @@ h2 {
   font-family: 'Black Ops One', cursive;
   font-size: 50px;
   text-align: left;
+
+  color: transparent;
+  -webkit-text-stroke-width: 0.5px;
+  -webkit-text-stroke-color: #000;
+
+  -webkit-transition: color 2s;
+  transition: color 2s;
 }
-img{
+
+h2:hover {
+ color: #07cff6;
+ -webkit-text-stroke-width: 0.5px;
+ -webkit-text-stroke-color: #07cff6;
+}
+
+img {
   width: 50px;
   height: 50px;
   margin-left: 10px;

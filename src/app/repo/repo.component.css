@@ -10,7 +10,35 @@
   box-shadow: 0 10px 10px 5px rgba(0, 0, 0, 0.5);
 }
 
-input,  button {
+.tableCont {
+  margin: auto;
+}
+
+#livesite {
+  color: orange;
+  transition: all .3s;
+}
+
+#livesite:hover {
+  padding: 5px;
+  color: white;
+  background-color: orange;
+  border-radius: 50%;
+}
+
+#plane1 {
+  color: #2DB2E3;
+  transition: all .3s;
+}
+
+#plane1:hover {
+  padding: 5px;
+  color: white;
+  background-color: #2DB2E3;
+  border-radius: 50%;
+}
+
+input, button {
   margin: 1%;
   outline: none;
 }
@@ -43,12 +71,11 @@ strong {
   float: left;
   clear: both;
   width: 100%;
-  color: #000 ;
+  color: #000;
   font-size: 14px;
   font-weight: 500;
   letter-spacing: -0.2px;
 }
-
 
 span {
   font-size: 26px;
@@ -71,6 +98,7 @@ span {
 .searchTerm:focus {
   color: #000;
 }
+
 .searchButton {
   width: 40px;
   height: 40px;
