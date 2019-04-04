@@ -1,13 +1,25 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
 
-.card {
+.KeyInfoCard {
   width: 400px;
   margin: 10px;
-  padding: 5px;
-  margin-bottom: 5%;
-  background-color: #fff;
-  align-items: center;
-  box-shadow: 0 10px 10px 5px rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  margin-top: 5% !important;
+  margin-bottom: 5% !important;
+  margin: auto;
+  background-image: linear-gradient(45deg, #00C9FF, #12F6D0, #92FE9D);
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px 5px rgba(0, 0, 0, 0.4);
+}
+
+.KeyInfoCard .fa {
+  font-size: 20px;
+  color: #000;
+}
+
+.KeyInfoCard h5 {
+  text-align: left !important;
 }
 
 .tableCont {
@@ -27,14 +39,14 @@
 }
 
 #plane1 {
-  color: #2DB2E3;
+  color: #05618C;
   transition: all .3s;
 }
 
 #plane1:hover {
   padding: 5px;
   color: white;
-  background-color: #2DB2E3;
+  background-color: #05618C;
   border-radius: 50%;
 }
 
@@ -44,16 +56,17 @@ input, button {
 }
 
 img {
-  width: 350px;
-  height: 350px;
+  width: 100px;
+  height: 100px;
   margin: auto;
   border-radius: 50%;
   border: 2px solid;
-  box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.4);
 }
 
 tbody {
-  background-color: rgba(255, 255, 255, 0.5);
+  border-color: #000;
+  background-image: linear-gradient(30deg, #00C9FF, #12F6D0, #92FE9D);
 }
 
 .stats-holder {
@@ -77,15 +90,62 @@ strong {
   letter-spacing: -0.2px;
 }
 
-span {
+.user-stats span {
   font-size: 26px;
   color: #5E5E5E;
-  padding: .18em 0;
+  width: 40px;
+  height: 40px;
+  margin: 5px;
   display: inline-block;
+  border-radius: 50%;
+  cursor: pointer;
+  animation: pulse 3s infinite;
+}
+
+.user-stats span:hover {
+  animation: none;
+}
+
+/* PULSE Animation */
+@-webkit-keyframes pulse {
+  0% {
+    -webkit-box-shadow: 0 0 0 0 rgba(204, 169, 44);
+  }
+
+  70% {
+    -webkit-box-shadow: 0 0 0 10px rgba(204, 169, 44, 0);
+  }
+
+  100% {
+    -webkit-box-shadow: 0 0 0 0 rgba(204, 169, 44, 0.9);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    -moz-box-shadow: 0 0 0 0 rgba(204, 169, 44);
+    box-shadow: 0 0 0 0 rgba(204, 169, 44);
+  }
+
+  70% {
+    -moz-box-shadow: 0 0 0 10px rgba(204, 169, 44, 0);
+    box-shadow: 0 0 0 10px rgba(204, 169, 44, 0);
+  }
+
+  100% {
+    -moz-box-shadow: 0 0 0 0 rgba(204, 169, 44, 0);
+    box-shadow: 0 0 0 0 rgba(204, 169, 44, 0);
+  }
+}
+
+/* PULSE Animation END*/
+.search {
+  width: 50%;
+  margin: auto;
+  display: block;
 }
 
 .searchTerm {
-  float: left;
   width: 60%;
   padding: 5px;
   border: 3px solid #000;

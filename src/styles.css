@@ -1,13 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 body {
-  background-image: linear-gradient( 225deg, whitesmoke 2%, #000 2%, #000 5%, #fff 5%, #fff 8%, #000 8%, #000 11%, whitesmoke 11%);
-  background-repeat: no-repeat;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
   margin: 0;
 
   font-family: 'Baloo', cursive;

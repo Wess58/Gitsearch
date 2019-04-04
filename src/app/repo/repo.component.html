@@ -1,7 +1,7 @@
 <div class="container">
 
-  <div class="wrap">
-    <div class="search">
+  <div class="wrap" >
+    <div class="row search" style="display:flex;justify-content:center;align-items:center;">
       <input type="text" class="searchTerm" onfocus="this.value=''" placeholder="Who are you looking for?" id="user" [(ngModel)]="username" #user="ngModel" name="username">
       <button type="submit" class="searchButton" (click)="getRepo()">
         <i class="fa fa-search"></i>
@@ -11,44 +11,39 @@
 
 
   <div class="row" *ngIf="profile">
-    <div class="col-md-6">
-      <div style="display:flex;justify-content:center;align-items:center;">
 
-        <div class="card">
-          <img src="{{profile.avatar_url}}" alt="Profile Image">
-          <h3><u>{{profile.login}}</u></h3>
-          <h3>{{profile.name}}</h3>
+    <div class="card KeyInfoCard">
 
-          <hr>
+      <img src="{{profile.avatar_url}}" alt="Profile Image">
+      <h3><u>{{profile.login}}</u></h3>
+      <h3>{{profile.name}}</h3>
+      <h4>{{profile.email}}</h4>
 
-          <div class="stats-holder">
-            <div class="user-stats">
-              <strong>Repositories</strong>
-              <span>{{profile.public_repos}}</span>
-            </div>
-            <div class="user-stats">
-              <strong><i class="fa fa-user-circle-o"></i> &nbsp;&nbsp;Following</strong>
-              <span>{{profile.following}}</span>
-            </div>
-            <div class="user-stats">
-              <strong><i class="fa fa-user-circle-o"></i> &nbsp;&nbsp;Followers</strong>
-              <span>{{profile.followers}}</span>
-            </div>
-          </div>
-
-        </div>
-
-
-      </div>
-    </div>
-
-    <div class="col-md-6">
-      <h5>{{profile.email}}</h5>
-      <h5><i class="fa fa-graduation-cap"></i> &nbsp;&nbsp;BIO: {{profile.bio}}</h5>
+      <h5><i class="fa fa-graduation-cap"></i> &nbsp;&nbsp;BIO <br>{{profile.bio}}</h5>
       <h5><i class="fa fa-newspaper-o"></i><a href="{{profile.blog}}" target="_blank"> &nbsp;&nbsp;BLOG / PORTFOLIO</a></h5>
-      <h4><i class="fa fa-map-marker"></i> &nbsp;&nbsp;{{profile.location}}</h4>
+      <h5><i class="fa fa-map-marker"></i> &nbsp;&nbsp;{{profile.location}}</h5>
       <h5><i class="fa fa-github-square"></i> &nbsp;&nbsp;<a href="{{profile.html_url}}" target="_blank">VISIT GITHUB PROFILE</a></h5>
       <h5><i class="fa fa-calendar"></i>&nbsp;&nbsp; {{profile.created_at}}</h5>
+
+      <hr>
+
+      <div class="stats-holder">
+        <div class="user-stats">
+          <strong><i class="fa fa-tasks"></i> &nbsp;&nbsp;Repositories</strong>
+          <span>{{profile.public_repos}}</span>
+
+        </div>
+        <div class="user-stats">
+          <strong><i class="fa fa-user-circle-o"></i> &nbsp;&nbsp;Following</strong>
+           <span>{{profile.following}}</span>
+
+        </div>
+        <div class="user-stats">
+          <strong><i class="fa fa-user-circle-o"></i> &nbsp;&nbsp;Followers</strong>
+          <span>{{profile.followers}}</span>
+        </div>
+      </div>
+
     </div>
 
 
@@ -60,7 +55,7 @@
 </div>
 
 
-<div class=" tableCont">
+<div class=" tableCont table-responsive-sm">
   <table class="table table-hover table-bordered">
     <thead class="thead-dark">
       <tr>
@@ -78,7 +73,7 @@
 
       <tr>
         <td><span style="text-transform: uppercase;font-size:20px;color:#000;">{{repo.name}}</span></td>
-        <td scope="row">{{repo.description}}</td>
+        <td width="20%">{{repo.description}}</td>
         <td><span class="badge badge-pill badge-info" style="padding:5px;color:#000;font-size:20px;">{{repo.language}}</span></td>
         <td>{{repo.created_at|date}}</td>
         <td>{{repo.fork}}</td>
