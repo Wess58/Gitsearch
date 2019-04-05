@@ -61,7 +61,13 @@ img {
   margin: auto;
   border-radius: 50%;
   border: 2px solid;
+  transition: all .5s;
   box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.4);
+}
+img:hover{
+  transform: scale(2);
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.6);
+
 }
 
 tbody {
