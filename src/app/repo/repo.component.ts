@@ -18,18 +18,19 @@ export class RepoComponent implements OnInit {
     this.service = serve;
   }
 
-  getRepo() {
-    this.service.updateProfile(this.username);
+  getUser() {
+    this.service.updateProfile(this.username.split(" ").join("");
     this.service.getProfileInfo().subscribe(profile => {
       this.profile = profile;
     });
-    this.service.getRepo().subscribe(repo => {
+    this.service.getUser().subscribe(repo => {
       this.repo = repo;
     });
   }
 
 
   ngOnInit() {
+
   }
 
 }

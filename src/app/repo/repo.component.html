@@ -1,92 +1,131 @@
-<div class="container">
+<nav class="container-fluid fixed-top px-5 py-0" align="center">
 
-  <div class="wrap" >
-    <div class="row search" style="display:flex;justify-content:center;align-items:center;">
-      <input type="text" class="searchTerm" onfocus="this.value=''" placeholder="Who are you looking for?" id="user" [(ngModel)]="username" #user="ngModel" name="username">
-      <button type="submit" class="searchButton" (click)="getRepo()">
+  <div class="row top justify-content-start mt-3">
+    <h1>GIT-SEARCH WEB APP</h1>
+    <img src="assets/images/github.svg">
+
+  </div>
+
+  <div class="row justify-content-center mb-2">
+    <div class="search justify-content-center">
+      <input type="text" class="searchTerm" placeholder="Who are you looking for? eg : wess58" id="user" [(ngModel)]="username" #user="ngModel" name="username" (keydown.enter)="getUser()">
+      <span class="searchButton" (click)="getUser()">
         <i class="fa fa-search"></i>
-      </button>
+      </span>
     </div>
   </div>
 
+
+</nav>
+
+<div class="container-fluid contData pl-5">
 
   <div class="row" *ngIf="profile">
 
-    <div class="card KeyInfoCard">
+    <div class="col-md-4">
 
-      <img src="{{profile.avatar_url}}" alt="Profile Image">
-      <h3><u>{{profile.login}}</u></h3>
-      <h3>{{profile.name}}</h3>
-      <h4>{{profile.email}}</h4>
+      <div>
+        <div class="card keyInfoCard my-5 px-3 pb-3">
 
-      <h5><i class="fa fa-graduation-cap"></i> &nbsp;&nbsp;BIO <br>{{profile.bio}}</h5>
-      <h5><i class="fa fa-newspaper-o"></i><a href="{{profile.blog}}" target="_blank"> &nbsp;&nbsp;BLOG / PORTFOLIO</a></h5>
-      <h5><i class="fa fa-map-marker"></i> &nbsp;&nbsp;{{profile.location}}</h5>
-      <h5><i class="fa fa-github-square"></i> &nbsp;&nbsp;<a href="{{profile.html_url}}" target="_blank">VISIT GITHUB PROFILE</a></h5>
-      <h5><i class="fa fa-calendar"></i>&nbsp;&nbsp; {{profile.created_at}}</h5>
+          <img src="{{profile.avatar_url}}" alt="Profile Image">
 
-      <hr>
+          <h3> {{profile.name == null ? profile.login : profile.name}}</h3>
+          <!-- <h3>{{profile.name}}</h3> -->
+          <!-- <h5 *ngIf="profile.email">{{profile.email}}</h5> -->
 
-      <div class="stats-holder">
-        <div class="user-stats">
-          <strong><i class="fa fa-tasks"></i> &nbsp;&nbsp;Repositories</strong>
-          <span>{{profile.public_repos}}</span>
+          <div *ngIf="profile.bio != null">
+            <h6><strong>BIO</strong></h6>
+            <p class="bio">{{profile.bio}}</p>
+          </div>
 
-        </div>
-        <div class="user-stats">
-          <strong><i class="fa fa-user-circle-o"></i> &nbsp;&nbsp;Following</strong>
-           <span>{{profile.following}}</span>
+          <div *ngIf="profile.blog != null == false">
+            <span>Visit {{profile.name == null ? profile.login : profile.name}}'s </span><a href="{{profile.blog}}" target="_blank"> Portfolio</a>
+          </div>
 
-        </div>
-        <div class="user-stats">
-          <strong><i class="fa fa-user-circle-o"></i> &nbsp;&nbsp;Followers</strong>
-          <span>{{profile.followers}}</span>
+          <p *ngIf="profile.location != null ">
+            <i class="fa fa-map-marker mr-2"></i>{{profile.location}}
+          </p>
+          <p>
+            <i class="fa fa-github-square mr-2"></i><a href="{{profile.html_url}}" target="_blank">VISIT GITHUB PROFILE</a>
+          </p>
+          <p>
+            <i class="fa fa-calendar mr-2"></i>{{profile.created_at | date : 'MMM d, y'}}
+          </p>
+
+          <hr>
+
+          <div class="stats-holder">
+            <div class="user-stats">
+              <strong><i class="fa fa-tasks mr-2"></i>Repositories</strong>
+              <span>{{profile.public_repos}}</span>
+
+            </div>
+            <div class="user-stats">
+              <strong><i class="fa fa-user-circle-o mr-2"></i>Following</strong>
+              <span>{{profile.following}}</span>
+
+            </div>
+            <div class="user-stats">
+              <strong><i class="fa fa-user-circle-o mr-2"></i>Followers</strong>
+              <span>{{profile.followers}}</span>
+            </div>
+          </div>
+
         </div>
       </div>
 
+
+
     </div>
 
+    <div class="col-md-8">
+      <div class=" tableCont table-responsive-sm">
+        <table class="table table-hover table-bordered">
+          <thead class="thead-dark">
+            <tr>
+              <th width="20%">REPO_NAME</th>
+              <th width="20%">DESCRIPTION</th>
+              <th>LANGUAGE</th>
+              <th>CREATION_DATE</th>
+              <th>GITHUB</th>
+              <th>LIVE_SITE</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let repo of repo">
+
+            <tr>
+              <td>
+                  <span class="repoName">{{repo.name}}</span>
+              </td>
+              <td class="text-center" style="word-wrap: break-word;max-width: 200px;" >
+                {{repo.description}}
+                <span *ngIf="repo.description == null"> — </span>
+              </td>
+              <td class="text-center">
+                <span class="badge badge-info languageBadge" >{{repo.language}}</span>
+              </td>
+              <td>
+                {{repo.created_at | date}}
+              </td>
+              <td class="text-center">
+                <a href="{{repo.html_url}}" target="_blank">
+                  <i class="fa fa-paper-plane" id="plane1" ></i>
+                </a>
+              </td>
+              <td class="text-center">
+                <a href="{{repo.homepage}}" target="_blank" *ngIf="repo.homepage">
+                  <i class="fa fa-paper-plane" id="livesite"></i>
+                </a>
+                <span *ngIf="repo.homepage == null"> — </span>
+
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+
+      </div>
+    </div>
 
   </div>
-
-
-
-</div>
-
-
-
-<div class=" tableCont table-responsive-sm">
-  <table class="table table-hover table-bordered">
-    <thead class="thead-dark">
-      <tr>
-        <th scope="col">REPO_NAME</th>
-        <th scope="col">DESCRIPTION</th>
-        <th scope="col">LANGUAGE</th>
-        <th scope="col">CREATION_DATE</th>
-        <th scope="col">FORK_STATUS</th>
-        <th scope="col">FORKS</th>
-        <th scope="col">GITHUB</th>
-        <th scope="col">LIVE_SITE</th>
-      </tr>
-    </thead>
-    <tbody *ngFor="let repo of repo" index=i>
-
-      <tr>
-        <td><span style="text-transform: uppercase;font-size:20px;color:#000;">{{repo.name}}</span></td>
-        <td style="word-wrap: break-word;max-width: 200px;">{{repo.description}}</td>
-        <td><span class="badge badge-pill badge-info" style="padding:5px;color:#000;font-size:20px;">{{repo.language}}</span></td>
-        <td>{{repo.created_at|date}}</td>
-        <td>{{repo.fork}}</td>
-        <td>{{repo.forks}}</td>
-        <td><a href="{{repo.html_url}}" target="_blank"><i class="fa fa-paper-plane" id="plane1" title="Go to github"></i></a></td>
-        <td><a href="{{repo.homepage}}" target="_blank" *ngIf="repo.homepage"><i class="fa fa-paper-plane" id="livesite" title="Visit live site"></i></a></td>
-      </tr>
-
-    </tbody>
-  </table>
-
-
-
-
-
 </div>
