@@ -2,5 +2,12 @@
 body {
   margin: 0;
 
-  font-family: 'Baloo', cursive;
+  /* font-family: 'Baloo', cursive; */
+  font-family: 'Manjari', sans-serif;
+
+
+}
+*.container-fluid{
+  padding: 0;
+  overflow-x: hidden;
 }
