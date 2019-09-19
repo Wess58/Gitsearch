@@ -10,7 +10,7 @@ export class GitService {
 
   constructor(private http: Http) {
 
-    this.username = 'wess58';
+    this.username = "wess58";
   }
 
 
@@ -18,7 +18,7 @@ export class GitService {
     return this.http.get("https://api.github.com/users/" + this.username + '?client_id=' + environment.clientID + '?client_secret=' + environment.clientSecret).pipe(map(res => res.json()));
   }
 
-  getRepo() {
+  getUser() {
     return this.http.get("https://api.github.com/users/" + this.username + '/repos?client_id=' + environment.clientID + '?client_secret=' + environment.clientSecret).pipe(map(res => res.json()));
   }
 
