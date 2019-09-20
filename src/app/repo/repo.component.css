@@ -94,6 +94,8 @@ nav {
   word-wrap: break-word;
   max-width: 300px;
   line-height: 20px;
+  font-size: 14px;
+  color: #80868b;
 }
 
 .keyInfoCard h5 {
