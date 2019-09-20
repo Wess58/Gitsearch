@@ -7,11 +7,12 @@ import {environment} from '../../environments/environment';
 })
 export class GitService {
   private username: string;
+  token: string = environment.accessToken;
+
 
   constructor(private http: Http) {
 
     this.username = "wess58";
-    token: string = environment.accessToken;
 
   }
 
