@@ -19,7 +19,7 @@ export class RepoComponent implements OnInit {
   }
 
   getUser() {
-    this.service.updateProfile(this.username.split(" ").join("");
+    this.service.updateProfile(this.username.split(" ").join(""));
     this.service.getProfileInfo().subscribe(profile => {
       this.profile = profile;
     });

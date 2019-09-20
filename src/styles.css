@@ -5,6 +5,15 @@ body {
   /* font-family: 'Baloo', cursive; */
   font-family: 'Manjari', sans-serif;
 
+  /* background-image: url("/assets/images/cool-background.png");
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-position: center top;
+  background-attachment: fixed; */
+
 
 }
 *.container-fluid{
