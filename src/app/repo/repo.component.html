@@ -38,18 +38,27 @@
             <p class="bio">{{profile.bio}}</p>
           </div>
 
-          <div *ngIf="profile.blog != null == false">
-            <span>Visit {{profile.name == null ? profile.login : profile.name}}'s </span><a href="{{profile.blog}}" target="_blank"> Portfolio</a>
+          <div>
+            <p *ngIf="profile.blog.length != 0" >
+              <i class="fa fa-id-card mr-2"></i>
+              Visit {{profile.name == null ? profile.login : profile.name}}'s
+            <a href="{{profile.blog}}" target="_blank"> Portfolio</a>
+            </p>
           </div>
 
           <p *ngIf="profile.location != null ">
             <i class="fa fa-map-marker mr-2"></i>{{profile.location}}
           </p>
           <p>
-            <i class="fa fa-github-square mr-2"></i><a href="{{profile.html_url}}" target="_blank">VISIT GITHUB PROFILE</a>
+            <i class="fa fa-github-square mr-2"></i>
+            <span>Visit {{profile.name == null ? profile.login : profile.name}}'s Github</span>
+            <a href="{{profile.html_url}}" target="_blank"> Profile</a>
           </p>
           <p>
-            <i class="fa fa-calendar mr-2"></i>{{profile.created_at | date : 'MMM d, y'}}
+            <i class="fa fa-calendar mr-2"></i>
+            <span><strong>Joined Github : </strong></span>
+            <span>{{profile.created_at | date : 'MMM d, y'}}</span>
+
           </p>
 
           <hr>
@@ -95,21 +104,21 @@
 
             <tr>
               <td>
-                  <span class="repoName">{{repo.name}}</span>
+                <span class="repoName">{{repo.name}}</span>
               </td>
-              <td class="text-center" style="word-wrap: break-word;max-width: 200px;" >
+              <td class="text-center" style="word-wrap: break-word;max-width: 200px;">
                 {{repo.description}}
                 <span *ngIf="repo.description == null"> — </span>
               </td>
               <td class="text-center">
-                <span class="badge badge-info languageBadge" >{{repo.language}}</span>
+                <span class="badge badge-info languageBadge">{{repo.language}}</span>
               </td>
               <td>
                 {{repo.created_at | date}}
               </td>
               <td class="text-center">
                 <a href="{{repo.html_url}}" target="_blank">
-                  <i class="fa fa-paper-plane" id="plane1" ></i>
+                  <i class="fa fa-paper-plane" id="plane1"></i>
                 </a>
               </td>
               <td class="text-center">
