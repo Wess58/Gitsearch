@@ -11,15 +11,17 @@ export class GitService {
   constructor(private http: Http) {
 
     this.username = "wess58";
+    token: string = environment.accessToken;
+
   }
 
 
   getProfileInfo() {
-    return this.http.get("https://api.github.com/users/" + this.username + '?access_token=' + environment.accessToken).pipe(map(res => res.json()));
+    return this.http.get("https://api.github.com/users/" + this.username + '?access_token=' + this.token).pipe(map(res => res.json()));
   }
 
   getUser() {
-    return this.http.get("https://api.github.com/users/" + this.username + '/repos?access_token=' + environment.accessToken).pipe(map(res => res.json()));
+    return this.http.get("https://api.github.com/users/" + this.username + '/repos?access_token=' + this.token).pipe(map(res => res.json()));
   }
 
   updateProfile(username: string) {
