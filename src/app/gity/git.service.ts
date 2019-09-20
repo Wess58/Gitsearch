@@ -15,11 +15,11 @@ export class GitService {
 
 
   getProfileInfo() {
-    return this.http.get("https://api.github.com/users/" + this.username + '?client_id=' + environment.clientID + '?client_secret=' + environment.clientSecret).pipe(map(res => res.json()));
+    return this.http.get("https://api.github.com/users/" + this.username + '?access_token=' + environment.accessToken).pipe(map(res => res.json()));
   }
 
   getUser() {
-    return this.http.get("https://api.github.com/users/" + this.username + '/repos?client_id=' + environment.clientID + '?client_secret=' + environment.clientSecret).pipe(map(res => res.json()));
+    return this.http.get("https://api.github.com/users/" + this.username + '/repos?access_token=' + environment.accessToken).pipe(map(res => res.json()));
   }
 
   updateProfile(username: string) {
