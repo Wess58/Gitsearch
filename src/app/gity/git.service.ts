@@ -7,7 +7,6 @@ import {environment} from '../../environments/environment.prod';
 })
 export class GitService {
   private username: string;
-  token: string = environment.accessToken;
 
 
   constructor(private http: Http) {
@@ -18,11 +17,13 @@ export class GitService {
 
 
   getProfileInfo() {
-    return this.http.get("https://api.github.com/users/" + this.username + '?access_token=' + this.token).pipe(map(res => res.json()));
+    return this.http.get("https://api.github.com/users/" + this.username + '?client_id=' + environment.clientID + '?client_secret=' + environment.clientSecret).pipe(map(res => res.json()));
+
   }
 
   getUser() {
-    return this.http.get("https://api.github.com/users/" + this.username + '/repos?access_token=' + this.token).pipe(map(res => res.json()));
+    return this.http.get("https://api.github.com/users/" + this.username + '/repos?client_id=' + environment.clientID + '?client_secret=' + environment.clientSecret).pipe(map(res => res.json()));
+
   }
 
   updateProfile(username: string) {
