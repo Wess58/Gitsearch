@@ -36,6 +36,14 @@ Install Git on you machine
  * follow the angular instructions BELOW.
 
 
+### Deploying Angular Project  
+
+read this article by `Magz8984` on Github for more info `https://medium.com/@magondu17/deploying-angular-6-and-above-apps-on-github-pages-78e0d71bedab`
+
+use this line to deploy especially for guys who use images for simple Angular has_projects
+`ng build --prod --base-href https://USERNAME.github.io/REPOSITORY_NAME/ --output-path docs
+`
+just set the right credentials where necessary , then push the new folder to github as usual , and your project will be deployed !! :smiley: :sunglasses:
 
 
 ### LICENSE
@@ -55,7 +63,7 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Run `npm install` then `ng build` to build the project. The build artifacts will be stored in the `docs/` directory. Use the `--prod` flag for a production build.
 
 ## Running unit tests
 
