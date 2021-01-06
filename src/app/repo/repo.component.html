@@ -7,132 +7,146 @@
   </div>
 
   <div class="row justify-content-center mb-2">
-    <div class="search justify-content-center">
-      <input type="text" class="searchTerm" placeholder="Who are you looking for? eg : wess58" id="user" [(ngModel)]="username" #user="ngModel" name="username" (keydown.enter)="getUser()">
+    <div class="search d-block">
+      <input type="text" class="searchTerm" [ngClass]="{'redBorder':error}" placeholder="Who are you looking for?" id="user" [(ngModel)]="username" #user="ngModel" name="username" (keydown.enter)="getUser()" autocomplete="off">
       <span class="searchButton" (click)="getUser()">
         <i class="fa fa-search"></i>
       </span>
     </div>
-  </div>
 
+  </div>
+  <div class="text-center redText" *ngIf="error">
+    <i>user not found</i>
+  </div>
 
 </nav>
 
-<div class="container-fluid contData pl-5">
+<div class="container-fluid contData px-5">
 
   <div class="row" *ngIf="profile">
 
-    <div class="col-md-4">
+    <div class="col-md-3">
 
-      <div>
-        <div class="card keyInfoCard my-5 px-3 pb-3">
+      <h3 style="position:fixed;" class="ml-3 font-weight-bold text-muted">Profile</h3>
 
-          <img src="{{profile.avatar_url}}" alt="Profile Image">
+      <div class="card keyInfoCard my-5 px-3 pb-3">
 
-          <h3> {{profile.name == null ? profile.login : profile.name}}</h3>
-          <!-- <h3>{{profile.name}}</h3> -->
-          <!-- <h5 *ngIf="profile.email">{{profile.email}}</h5> -->
+        <img src="{{profile.avatar_url}}" alt="Profile Image">
 
-          <div *ngIf="profile.bio != null">
-            <h6><strong>BIO</strong></h6>
-            <p class="bio">{{profile.bio}}</p>
-          </div>
+        <h3> {{profile.name == null ? profile.login : profile.name}}</h3>
+        <!-- <h3>{{profile.name}}</h3> -->
+        <!-- <h5 *ngIf="profile.email">{{profile.email}}</h5> -->
 
-          <div>
-            <p *ngIf="profile.blog.length != 0" >
-              <i class="fa fa-id-card mr-2"></i>
-              Visit {{profile.name == null ? profile.login : profile.name}}'s
-            <a href="{{profile.blog}}" target="_blank"> Portfolio</a>
-            </p>
-          </div>
-
-          <p *ngIf="profile.location != null ">
-            <i class="fa fa-map-marker mr-2"></i>{{profile.location}}
-          </p>
-          <p>
-            <i class="fa fa-github-square mr-2"></i>
-            <span>Visit {{profile.name == null ? profile.login : profile.name}}'s Github</span>
-            <a href="{{profile.html_url}}" target="_blank"> Profile</a>
-          </p>
-          <p>
-            <i class="fa fa-calendar mr-2"></i>
-            <span><strong>Joined Github : </strong></span>
-            <span>{{profile.created_at | date : 'MMM d, y'}}</span>
-
-          </p>
-
-          <hr>
-
-          <div class="stats-holder">
-            <div class="user-stats">
-              <strong><i class="fa fa-tasks mr-2"></i>Repositories</strong>
-              <span>{{profile.public_repos}}</span>
-
-            </div>
-            <div class="user-stats">
-              <strong><i class="fa fa-user-circle-o mr-2"></i>Following</strong>
-              <span>{{profile.following}}</span>
-
-            </div>
-            <div class="user-stats">
-              <strong><i class="fa fa-user-circle-o mr-2"></i>Followers</strong>
-              <span>{{profile.followers}}</span>
-            </div>
-          </div>
-
+        <div *ngIf="profile.bio != null">
+          <h6><strong>BIO</strong></h6>
+          <p class="bio">{{profile.bio}}</p>
         </div>
+
+        <div>
+          <p *ngIf="profile.blog.length != 0">
+            <i class="fa fa-id-card mr-2"></i>
+            Visit {{profile.name == null ? profile.login : profile.name}}'s
+            <a href="{{profile.blog}}" target="_blank"> Portfolio</a>
+          </p>
+        </div>
+
+        <p *ngIf="profile.location != null ">
+          <i class="fa fa-map-marker-alt mr-2"></i>{{profile.location}}
+        </p>
+        <p>
+          <i class="fab fa-github-square mr-2"></i>
+          <span>Visit {{profile.name == null ? profile.login : profile.name}}'s Github</span>
+          <a href="{{profile.html_url}}" target="_blank"> Profile</a>
+        </p>
+        <p>
+          <i class="fa fa-calendar mr-2"></i>
+          <span><strong>Joined Github : </strong></span>
+          <span>{{profile.created_at | date : 'MMM d, y'}}</span>
+
+        </p>
+
+        <hr>
+
+        <div class="stats-holder">
+          <div class="user-stats">
+            <strong><i class="fa fa-tasks mr-2"></i>Repositories</strong>
+            <span>{{profile.public_repos}}</span>
+
+          </div>
+          <div class="user-stats">
+            <strong><i class="fa fa-user-circle-o mr-2"></i>Following</strong>
+            <span>{{profile.following}}</span>
+
+          </div>
+          <div class="user-stats">
+            <strong><i class="fa fa-user-circle-o mr-2"></i>Followers</strong>
+            <span>{{profile.followers}}</span>
+          </div>
+        </div>
+
       </div>
 
+    </div>
 
+    <div class="col-0 col-md-1">
 
     </div>
 
     <div class="col-md-8">
-      <div class=" tableCont table-responsive-sm">
-        <table class="table table-hover table-bordered">
-          <thead class="thead-dark">
-            <tr>
-              <th width="20%">REPO_NAME</th>
-              <th width="20%">DESCRIPTION</th>
-              <th>LANGUAGE</th>
-              <th>CREATION_DATE</th>
-              <th>GITHUB</th>
-              <th>LIVE_SITE</th>
-            </tr>
-          </thead>
-          <tbody *ngFor="let repo of repo">
 
-            <tr>
-              <td>
-                <span class="repoName">{{repo.name}}</span>
-              </td>
-              <td class="text-center" style="word-wrap: break-word;max-width: 200px;">
-                {{repo.description}}
-                <span *ngIf="repo.description == null"> — </span>
-              </td>
-              <td class="text-center">
-                <span class="badge badge-info languageBadge">{{repo.language}}</span>
-              </td>
-              <td>
+      <h3 class="font-weight-bold text-muted ml-2">Repositories</h3>
+
+      <div class="row">
+        <div class="col-md-4" *ngFor="let repo of repos">
+          <div class="card repo-card">
+
+
+
+            <div class="row">
+
+              <div class="col-10 col-md-10">
+                <h5 class="repo-name">{{repo.name}}</h5>
+
+              </div>
+
+              <div class="col-2 col-md-2">
+                <span title="forked repository" *ngIf="repo.fork">
+                  <i class="fas fa-cookie-bite" style="color:orange;"></i>
+                </span>
+              </div>
+
+            </div>
+
+            <div style="height:50px;" class="mb-2">
+
+              <p class="repo-desc"> {{repo.description | slice :0 :70}} <span style="font-size:1.1rem;">{{repo.description?.length > 70 ? '&hellip;' : ''}}</span> </p>
+
+            </div>
+
+            <div class="d-inline repo-date">
+              <span>
+                <i class="fas fa-calendar-day mr-2"></i>
+              </span>
+
+              <span class="create-date">
                 {{repo.created_at | date}}
-              </td>
-              <td class="text-center">
-                <a href="{{repo.html_url}}" target="_blank">
-                  <i class="fa fa-paper-plane" id="plane1"></i>
+              </span>
+            </div>
+
+            <div class="row">
+              <div class="col-6 col-md-6">
+                <a role="button" class="btn btn-md git-btn" href="{{repo.html_url}}" target="_blank">
+                  Github
                 </a>
-              </td>
-              <td class="text-center">
-                <a href="{{repo.homepage}}" target="_blank" *ngIf="repo.homepage">
-                  <i class="fa fa-paper-plane" id="livesite"></i>
+              </div>
+              <div class="col-6 col-md-6">
+                <a href="{{repo.homepage}}" target="_blank" role="button" class="btn btn-md live-btn" *ngIf="repo.homepage">
+                  Live site
                 </a>
-                <span *ngIf="repo.homepage == null"> — </span>
-
-              </td>
-            </tr>
-
-          </tbody>
-        </table>
-
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 

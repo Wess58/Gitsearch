@@ -47,7 +47,7 @@ nav {
   position: absolute;
   top: 7px;
   right: 20px;
-  color: #2d74a2;
+  color: grey;
   font-size: 20px;
   cursor: pointer;
 }
@@ -61,6 +61,8 @@ nav {
 /* **************************************************** */
 .contData .keyInfoCard {
   position: fixed;
+  top: 200px;
+  width: 380px;
   margin: 10px;
   /* background-image: linear-gradient(45deg, #00C9FF, #12F6D0, #92FE9D); */
   background-image: linear-gradient(172deg, #2d74a2 20%, #fff 20.4%) ;
@@ -130,6 +132,32 @@ tbody {
   /* background-image: linear-gradient(30deg, #00C9FF, #12F6D0, #92FE9D); */
 }
 
+
+.repo-card{
+  border: none!important;
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.09);
+  padding: 20px;
+  margin: 20px 10px;
+}
+.repo-card .repo-name{
+  font-weight: 600;
+  color: #3c4043;
+  letter-spacing: 1px;
+}
+.repo-card .repo-name::first-letter{
+  text-transform: uppercase;
+}
+.repo-card .repo-desc{
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  color: #80868b;
+}
+
+.repo-card .repo-date{
+  color: #80868b;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
 
 .repoName {
   text-transform: uppercase;
