@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { map } from 'rxjs/operators';
-import {environment} from '../../environments/environment.prod';
+import { environment } from '../../environments/environment.prod';
 @Injectable({
   providedIn: 'root'
 })
@@ -11,22 +11,21 @@ export class GitService {
 
   constructor(private http: Http) {
 
-    this.username = "wess58";
-
   }
 
 
-  getProfileInfo() {
-    return this.http.get("https://api.github.com/users/" + this.username + '?client_id=' + environment.clientID + '?client_secret=' + environment.clientSecret).pipe(map(res => res.json()));
-
+  getProfileInfo(name: string) {
+    return this.http.get("https://api.github.com/users/" + name + '?access_token=' + environment.accessToken).pipe(map(res => res.json()));
   }
 
-  getUser() {
-    return this.http.get("https://api.github.com/users/" + this.username + '/repos?client_id=' + environment.clientID + '?client_secret=' + environment.clientSecret).pipe(map(res => res.json()));
+  getUserRepos(name: string) {
+    return this.http.get("https://api.github.com/users/" + name + '/repos?access_token=' + environment.accessToken).pipe(map(res => res.json()));
 
+    // return this.http.get("https://api.github.com/users/" + name + '/repos?client_id=' + environment.clientID + '?client_secret=' + environment.clientSecret).pipe(map(res => res.json()));
   }
 
-  updateProfile(username: string) {
-    this.username = username;
+  getContributors(name:string ,repo:string){
+    return this.http.get("https://api.github.com/repos/" + name +"/"+ repo +"/contributors" + '?access_token=' + environment.accessToken).pipe(map(res => res.json()));
+
   }
 }
