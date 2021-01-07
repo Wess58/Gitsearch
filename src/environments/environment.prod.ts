@@ -1,7 +1,7 @@
-import { environment as common } from './environment';
+// import { environment as common } from './environment';
 
 
 export const environment = {
-  ...common,
+  // ...common,
   production: true
 };
