@@ -13,6 +13,7 @@ export class RepoComponent implements OnInit {
   repos: any[] = [];
   username: string = 'wess58';
   error: Boolean = false;
+  loading:Boolean = false;
   // contributors:any[] = [];
 
   constructor(
@@ -27,9 +28,13 @@ export class RepoComponent implements OnInit {
 
   getUser() {
     // console.log('username', this.username);
+    this.loading = true;
 
     this.gitService.getProfileInfo(this.username.split(" ").join("")).subscribe(profile => {
+
       this.profile = profile;
+      this.loading = false;
+
       // console.log('profile', this.profile);
       this.error = false;
       // console.log('error', this.error);

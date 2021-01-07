@@ -4,7 +4,8 @@ nav {
 
 .top h1 {
   font-family: 'Fredoka One', cursive;
-  font-size: 50px;
+  font-size: 3rem;
+  color: #5f6063;
   /* color: transparent;
   -webkit-text-stroke-width: 0.5px;
   -webkit-text-stroke-color: #000;
@@ -17,7 +18,6 @@ nav {
   -webkit-text-stroke-width: 0.5px;
   -webkit-text-stroke-color: #07cff6;
 } */
-
 .top img {
   width: 50px;
   height: 50px;
@@ -45,7 +45,7 @@ nav {
 
 .searchButton {
   position: absolute;
-  top: 7px;
+  top: 10px;
   right: 20px;
   color: grey;
   font-size: 20px;
@@ -65,10 +65,10 @@ nav {
   width: 380px;
   margin: 10px;
   /* background-image: linear-gradient(45deg, #00C9FF, #12F6D0, #92FE9D); */
-  background-image: linear-gradient(172deg, #2d74a2 20%, #fff 20.4%) ;
+  background-image: linear-gradient(172deg, #2d74a2 20%, #fff 20.4%);
   border-radius: 10px;
-  box-shadow: 0 30px 40px 5px rgba(0, 0, 0, 0.2);
-
+  box-shadow: 0 30px 40px 5px rgba(0, 0, 0, 0.09);
+  border: none !important;
   /* background-image: url("/assets/images/cool-background.png");
   background-repeat: no-repeat;
   -webkit-background-size: cover;
@@ -132,31 +132,77 @@ tbody {
   /* background-image: linear-gradient(30deg, #00C9FF, #12F6D0, #92FE9D); */
 }
 
-
-.repo-card{
-  border: none!important;
-  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.09);
+.repo-card {
+  border: none !important;
+  box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.09);
+  /* border: 1px solid #2d74a2; */
   padding: 20px;
   margin: 20px 10px;
+  border-radius: 12px;
 }
-.repo-card .repo-name{
+
+.repo-card .fa-cookie-bite {
+  color: orange;
+  cursor: pointer;
+}
+
+.repo-card .fa-cookie-bite:hover + .tultip{
+  opacity: 1;
+  transition: all .2s ease;
+}
+
+.repo-card .tultip{
+  opacity: 0;
+  position: absolute;
+  top:20px;
+  right: 5px;
+  color: #5f6063;
+  padding: 5px 10px;
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.09);
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+.repo-card .repo-name {
   font-weight: 600;
   color: #3c4043;
   letter-spacing: 1px;
 }
-.repo-card .repo-name::first-letter{
+
+.repo-card .repo-name::first-letter {
   text-transform: uppercase;
 }
-.repo-card .repo-desc{
+
+.repo-card .desc-div {
+  min-height: 50px;
+}
+
+.repo-card .repo-desc {
   font-size: 0.9rem;
   letter-spacing: 1px;
   color: #80868b;
 }
 
-.repo-card .repo-date{
+.repo-card .repo-date {
   color: #80868b;
   font-weight: bold;
   font-size: 0.9rem;
+}
+
+.repo-card .git-btn {
+  background-color: #f1f1f1;
+  color: #5f6063;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-radius: 8px;
+}
+
+.repo-card .live-btn {
+  background-color: #2d74a2;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-radius: 8px;
 }
 
 .repoName {
@@ -209,6 +255,9 @@ tbody {
   animation: none;
 }
 
+
+
+
 /* PULSE Animation */
 @-webkit-keyframes pulse {
   0% {
@@ -242,3 +291,64 @@ tbody {
 }
 
 /* PULSE Animation END*/
+@media (max-width:3000px) {}
+
+@media (max-width:2000px) {}
+
+@media (max-width:1700px) {}
+
+@media (max-width:1500px) {}
+
+@media (max-width:1350px) {
+  .container-fluid {
+    padding-left: 30px!important;
+    padding-right: 30px!important;
+  }
+
+  .contData {
+    padding-top: 5vh;
+  }
+
+  .contData .keyInfoCard {
+    position: fixed;
+    top: 200px;
+    width: 350px;
+  }
+}
+
+@media (max-width:1100px) {}
+
+@media (max-width:1020px) {}
+
+@media (max-width:760px) {
+  .container-fluid {
+    padding: 20px !important;
+  }
+
+  .contData {
+    padding-top: 0vh !important;
+  }
+
+  #profile {
+    margin-top: 25vh;
+  }
+
+  .repo-header {
+    margin-top: 50px;
+  }
+
+  .contData .keyInfoCard {
+    position: relative;
+    top: 0px;
+    width: 100%;
+    margin: 0 !important;
+  }
+
+  .top h1 {
+    font-size: 1.5rem;
+  }
+
+  .repo-card {
+    margin: 20px 0px !important;
+  }
+}

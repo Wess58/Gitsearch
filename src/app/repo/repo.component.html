@@ -2,7 +2,7 @@
 
   <div class="row top justify-content-start mt-3">
     <h1>GIT-SEARCH WEB APP</h1>
-    <img src="assets/images/github.svg">
+    <img src="assets/images/github.svg" class="d-none d-sm-none d-md-inline">
 
   </div>
 
@@ -23,11 +23,11 @@
 
 <div class="container-fluid contData px-5">
 
-  <div class="row" *ngIf="profile">
+  <div class="row" id="profile" *ngIf="profile">
 
     <div class="col-md-3">
 
-      <h3 style="position:fixed;" class="ml-3 font-weight-bold text-muted">Profile</h3>
+      <h3 style="position:fixed;" class="ml-3 font-weight-bold text-muted d-none d-sm-none d-md-block">Profile</h3>
 
       <div class="card keyInfoCard my-5 px-3 pb-3">
 
@@ -69,17 +69,17 @@
 
         <div class="stats-holder">
           <div class="user-stats">
-            <strong><i class="fa fa-tasks mr-2"></i>Repositories</strong>
+            <strong><i class="fa fa-archive mr-2 hide-ms"></i>Repositories</strong>
             <span>{{profile.public_repos}}</span>
 
           </div>
           <div class="user-stats">
-            <strong><i class="fa fa-user-circle-o mr-2"></i>Following</strong>
+            <strong><i class="fas fa-user-circle mr-2 hide-ms"></i>Following</strong>
             <span>{{profile.following}}</span>
 
           </div>
           <div class="user-stats">
-            <strong><i class="fa fa-user-circle-o mr-2"></i>Followers</strong>
+            <strong><i class="fas fa-user-circle mr-2 hide-ms"></i>Followers</strong>
             <span>{{profile.followers}}</span>
           </div>
         </div>
@@ -94,60 +94,99 @@
 
     <div class="col-md-8">
 
-      <h3 class="font-weight-bold text-muted ml-2">Repositories</h3>
-
-      <div class="row">
-        <div class="col-md-4" *ngFor="let repo of repos">
-          <div class="card repo-card">
 
 
 
-            <div class="row">
+      <h3 class="font-weight-bold text-muted ml-2 repo-header">Repositories</h3>
 
-              <div class="col-10 col-md-10">
-                <h5 class="repo-name">{{repo.name}}</h5>
+
+
+
+      <div class="loader" *ngIf="loading">Loading...</div>
+
+      <div *ngIf="!loading">
+
+
+        <div class="row">
+          <div class="col-md-4" *ngFor="let repo of repos">
+            <div class="card repo-card">
+
+
+
+              <div class="row">
+
+                <div class="col-10 col-md-10">
+                  <h5 class="repo-name">{{repo.name}}</h5>
+
+                </div>
+
+                <div class="col-2 col-md-2">
+                  <span *ngIf="repo.fork">
+                    <i class="fas fa-cookie-bite"></i>
+                    <span class="tultip">
+                      forked repository
+                    </span>
+                  </span>
+
+
+                </div>
 
               </div>
 
-              <div class="col-2 col-md-2">
-                <span title="forked repository" *ngIf="repo.fork">
-                  <i class="fas fa-cookie-bite" style="color:orange;"></i>
+              <div class="desc-div mb-2">
+
+                <p class="repo-desc"> {{repo.description === null || repo.description === undefined ? '—' : repo.description | slice :0 :70}} <span style="font-size:1.1rem;">{{repo.description?.length > 70 ? '&hellip;' : ''}}</span> </p>
+
+              </div>
+
+
+              <div class="d-inline repo-date mb-1">
+                <span>
+                  <i class="fas fa-file-alt mr-2"></i>
+                </span>
+                <span>&nbsp;{{repo.language}}</span>
+              </div>
+
+
+              <div class="d-inline repo-date mb-1">
+                <span>
+                  <i class="fas fa-user mr-2"></i>
+                </span>
+                <span>{{repo.contributors?.length > 1 ? repo.contributors?.length + ' Contributors' : repo.contributors?.length + ' Contributor'}}</span>
+              </div>
+
+
+
+
+              <div class="d-inline repo-date mb-1">
+                <span>
+                  <i class="fas fa-calendar-day mr-2"></i>
+                </span>
+
+                <span class="create-date">
+                  {{repo.created_at | date}}
                 </span>
               </div>
 
-            </div>
-
-            <div style="height:50px;" class="mb-2">
-
-              <p class="repo-desc"> {{repo.description | slice :0 :70}} <span style="font-size:1.1rem;">{{repo.description?.length > 70 ? '&hellip;' : ''}}</span> </p>
-
-            </div>
-
-            <div class="d-inline repo-date">
-              <span>
-                <i class="fas fa-calendar-day mr-2"></i>
-              </span>
-
-              <span class="create-date">
-                {{repo.created_at | date}}
-              </span>
-            </div>
-
-            <div class="row">
-              <div class="col-6 col-md-6">
-                <a role="button" class="btn btn-md git-btn" href="{{repo.html_url}}" target="_blank">
-                  Github
-                </a>
-              </div>
-              <div class="col-6 col-md-6">
-                <a href="{{repo.homepage}}" target="_blank" role="button" class="btn btn-md live-btn" *ngIf="repo.homepage">
-                  Live site
-                </a>
+              <div class="row mt-3">
+                <div class="col-6 col-md-6">
+                  <a role="button" class="btn btn-md git-btn" href="{{repo.html_url}}" target="_blank">
+                    Github
+                  </a>
+                </div>
+                <div class="col-6 col-md-6 text-right">
+                  <a href="{{repo.homepage}}" target="_blank" role="button" class="btn btn-md live-btn" *ngIf="repo.homepage">
+                    Live site
+                  </a>
+                </div>
               </div>
             </div>
           </div>
         </div>
+
       </div>
+
+
     </div>
 
   </div>
