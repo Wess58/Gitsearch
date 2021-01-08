@@ -62,7 +62,10 @@ export class RepoComponent implements OnInit {
       this.repos.forEach(repo => {
         this.gitService.getContributors(this.username.split(" ").join(""), repo.name).subscribe(res => {
           repo.contributors = res;
-          repo.description = repo.description.replace(/(https?:\/\/[^\s]+)/g, "LINK")
+          if (repo.description !== null && repo.description !== undefined) {
+            repo.description = repo.description.replace(/(https?:\/\/[^\s]+)/g, "LINK")
+
+          }
 
           // console.log(repo.stargazers_count);
           // console.log('contributors' , repo.name + " - " + repo.contributors.length);
