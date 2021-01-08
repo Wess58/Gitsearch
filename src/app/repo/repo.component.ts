@@ -13,7 +13,7 @@ export class RepoComponent implements OnInit {
   repos: any[] = [];
   username: string = 'wess58';
   error: Boolean = false;
-  loading:Boolean = false;
+  loading: Boolean = false;
   // contributors:any[] = [];
 
   constructor(
@@ -23,7 +23,9 @@ export class RepoComponent implements OnInit {
 
 
   ngOnInit() {
+
     this.getUser();
+
   }
 
   getUser() {
