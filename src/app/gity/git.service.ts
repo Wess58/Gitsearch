@@ -15,14 +15,14 @@ export class GitService {
 
 
   getProfileInfo(name: string) {
-    var token = environment.hubTkn;
+    var token = environment.token;
     // console.log(token);
 
     return this.http.get("https://api.github.com/users/" + name + '?access_token=' + token).pipe(map(res => res.json()));
   }
 
   getUserRepos(name: string) {
-    var token = environment.hubTkn;
+    var token = environment.token;
 
     return this.http.get("https://api.github.com/users/" + name + '/repos?access_token=' + token).pipe(map(res => res.json()));
 
@@ -30,7 +30,7 @@ export class GitService {
   }
 
   getContributors(name: string, repo: string) {
-    var token = environment.hubTkn;
+    var token = environment.token;
 
     return this.http.get("https://api.github.com/repos/" + name + "/" + repo + "/contributors" + '?access_token=' + token).pipe(map(res => res.json()));
 

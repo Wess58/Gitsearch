@@ -55,7 +55,7 @@ export class RepoComponent implements OnInit {
     this.gitService.getUserRepos(this.username.split(" ").join("")).subscribe(results => {
       this.repos = results;
       this.repos.sort((a, b) => b.id - a.id);
-      console.log('repos', this.repos);
+      // console.log('repos', this.repos);
 
       this.repos.forEach(repo => {
         this.gitService.getContributors(this.username.split(" ").join(""), repo.name).subscribe(res => {
