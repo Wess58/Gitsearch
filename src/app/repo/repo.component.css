@@ -52,6 +52,59 @@ nav {
   cursor: pointer;
 }
 
+.search .search-listing {
+  position: absolute;
+  top: 50px;
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #e1e1e1;
+  border-radius: 8px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  z-index: 1100 !important;
+  max-height: 400px;
+  overflow-y: scroll;
+}
+
+.search .search-listing::-webkit-scrollbar {
+  width: 5px;
+  background: transparent;
+}
+
+.search .search-listing::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px transparent;
+  border-radius: 50px;
+}
+
+.search .search-listing::-webkit-scrollbar-thumb {
+  border-radius: 15px;
+  background: #1472C8;
+}
+
+.search .search-listing .list-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: #5f6063;
+  border-bottom: 1px solid #f1f1f1;
+  padding-left: 10px;
+  cursor: pointer;
+}
+
+.search .search-listing .list-item:hover {
+  background-color: #f1f1f177;
+}
+
+.search .search-listing .list-item:last-child {
+  border: none !important;
+}
+
+.search .search-listing .list-item img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin: 5px 20px 5px 0;
+}
+
 .contData {
   margin-top: 10%;
 }
@@ -146,15 +199,15 @@ tbody {
   cursor: pointer;
 }
 
-.repo-card .fa-cookie-bite:hover + .tultip{
+.repo-card .fa-cookie-bite:hover+.tultip {
   opacity: 1;
   transition: all .2s ease;
 }
 
-.repo-card .tultip{
+.repo-card .tultip {
   opacity: 0;
   position: absolute;
-  top:20px;
+  top: 20px;
   right: 5px;
   color: #5f6063;
   padding: 5px 10px;
@@ -255,9 +308,6 @@ tbody {
   animation: none;
 }
 
-
-
-
 /* PULSE Animation */
 @-webkit-keyframes pulse {
   0% {
@@ -301,8 +351,8 @@ tbody {
 
 @media (max-width:1350px) {
   .container-fluid {
-    padding-left: 30px!important;
-    padding-right: 30px!important;
+    padding-left: 30px !important;
+    padding-right: 30px !important;
   }
 
   .contData {

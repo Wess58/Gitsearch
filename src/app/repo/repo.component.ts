@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GitService } from '../gity/git.service';
 
@@ -8,13 +8,32 @@ import { GitService } from '../gity/git.service';
   styleUrls: ['./repo.component.css']
 })
 export class RepoComponent implements OnInit {
+  @HostListener('document:click', ['$event']) onClick(event: any) {
+    // console.log(event.target.attributes);
+
+    if (event.target.attributes.id) {
+      if (event.target.attributes.id.nodeValue === 'special') {
+        this.open = true;
+      } else {
+        this.open = false;
+      }
+    }else{
+      this.open = false;
+    }
+
+  }
 
   profile: any;
   repos: any;
   username: string = 'wess58';
   error: Boolean = false;
   loading = false;
+  usersList: any;
+  open = false;
   // contributors:any[] = [];
+  //
+
+
 
   constructor(
     public gitService: GitService,
@@ -61,11 +80,14 @@ export class RepoComponent implements OnInit {
         // console.log(res);
 
         this.repos = res.body;
-        this.repos.sort((a, b) => b.id - a.id);
 
         if (this.repos) {
           this.getContributors();
         }
+        
+        this.repos.sort((a, b) => b.id - a.id);
+
+
         // console.log('repos', this.repos);
 
       });
@@ -91,6 +113,30 @@ export class RepoComponent implements OnInit {
       });
 
     });
+  }
+
+  searchUsers() {
+    // console.log('username', this.username);
+
+    this.gitService.searchUsers(this.username.split(" ").join("")).subscribe(
+      res => {
+
+        console.log(res);
+
+        this.usersList = res.body.items;
+
+        this.loading = false;
+        this.error = false;
+
+      },
+      (error) => {
+        this.error = true;
+        // console.log('error', this.error);
+
+      });
+
+
+
   }
 
 }

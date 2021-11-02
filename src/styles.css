@@ -1,8 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
-@import '../node_modules/@fortawesome/fontawesome-free/css/fontawesome.css';
-@import '../node_modules/@fortawesome/fontawesome-free/css/solid.css';
-@import '../node_modules/@fortawesome/fontawesome-free/css/brands.css';
-@import '../node_modules/@fortawesome/fontawesome-free/css/all.css';
+@import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+@import '../node_modules/@fortawesome/fontawesome-free/css/all.min.css';
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Manjari&display=swap');
 
 body {
   margin: 0;

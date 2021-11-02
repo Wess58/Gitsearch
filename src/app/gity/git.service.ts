@@ -16,10 +16,15 @@ export class GitService {
   }
 
   getUserRepos(name: string) {
-    return this.http.get<any>("https://api.github.com/users/" + name + '/repos?per_page=1000', { observe: 'response' });
+    return this.http.get<any>("https://api.github.com/users/" + name + '/repos?per_page=150', { observe: 'response' });
   }
 
   getContributors(name: string, repo: string) {
     return this.http.get<any>("https://api.github.com/repos/" + name + "/" + repo + "/contributors", { observe: 'response' });
+  }
+
+  searchUsers(name:string){
+    return this.http.get<any>("https://api.github.com/search/users?q=" + name , { observe: 'response' });
+
   }
 }

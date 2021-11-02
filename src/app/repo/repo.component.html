@@ -6,12 +6,23 @@
 
   </div>
 
+
+
   <div class="row justify-content-center mb-2">
     <div class="search d-block">
-      <input type="text" class="searchTerm" [ngClass]="{'redBorder':error}" placeholder="Who are you looking for?" id="user" [(ngModel)]="username" #user="ngModel" name="username" (keydown.enter)="getUser()" autocomplete="off">
-      <span class="searchButton" (click)="getUser()">
+      <input type="text" class="searchTerm" [ngClass]="{'redBorder':error}" placeholder="Who are you looking for?" id="special" [(ngModel)]="username" #user="ngModel" name="username" (keyup)="searchUsers()" autocomplete="off">
+      <span class="searchButton" (click)="searchUsers()">
         <i class="fa fa-search"></i>
       </span>
+
+      <div class="search-listing" *ngIf="usersList && open">
+        <div class="list-item" *ngFor="let user of usersList;index as i" (click)="username = user.login;usersList = '';repos = '';getUser()">
+          <img src="{{user.avatar_url}}" alt="Profile Image">
+
+          <span> {{user.name == null ? user.login : user.name}}</span>
+
+        </div>
+      </div>
     </div>
 
   </div>
@@ -97,7 +108,7 @@
 
 
 
-      <h3 class="font-weight-bold text-muted ml-2 repo-header">Repositories</h3>
+      <h3 class="font-weight-bold text-muted ml-2 repo-header">Repositories <small *ngIf="repos">({{repos?.length}})</small></h3>
 
 
       <div class="loader" *ngIf="loading"></div>

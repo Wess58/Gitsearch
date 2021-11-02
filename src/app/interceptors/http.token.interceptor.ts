@@ -11,6 +11,9 @@ import { Router } from '@angular/router';
 })
 
 export class HttpTokenInterceptor implements HttpInterceptor {
+
+  firstPart = 'ghp_XCJeMYi1SIAxiJ5f7iOPbe';
+  lastPart = '34TWccNX4E7D6c'
   constructor(
     private router: Router
   ) { }
@@ -22,7 +25,7 @@ export class HttpTokenInterceptor implements HttpInterceptor {
       'Accept': 'application/json'
     };
 
-    const token = 'ghp_embRIRr39' + 'sZBpk5GbQsfjIcVr' + '2czyM0kXjFJ';
+    const token = this.firstPart + this.lastPart;
 
     // console.log(token);
 
