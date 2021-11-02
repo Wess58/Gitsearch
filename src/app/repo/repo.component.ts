@@ -10,10 +10,10 @@ import { GitService } from '../gity/git.service';
 export class RepoComponent implements OnInit {
 
   profile: any;
-  repos: any[] = [];
+  repos: any;
   username: string = 'wess58';
   error: Boolean = false;
-  loading: Boolean = false;
+  loading = false;
   // contributors:any[] = [];
 
   constructor(
@@ -32,50 +32,65 @@ export class RepoComponent implements OnInit {
     // console.log('username', this.username);
     this.loading = true;
 
-    this.gitService.getProfileInfo(this.username.split(" ").join("")).subscribe(profile => {
+    this.gitService.getProfileInfo(this.username.split(" ").join("")).subscribe(
+      res => {
 
-      this.profile = profile;
-      this.loading = false;
+        // console.log(res);
 
-      // console.log('profile', this.profile);
-      this.error = false;
-      // console.log('error', this.error);
+        this.profile = res.body;
+        this.getRepos();
 
-    },
+        this.loading = false;
+        this.error = false;
+
+      },
       (error) => {
         this.error = true;
         // console.log('error', this.error);
 
       });
 
-    this.getRepos();
 
 
   }
 
   getRepos(): void {
-    this.gitService.getUserRepos(this.username.split(" ").join("")).subscribe(results => {
-      this.repos = results;
-      this.repos.sort((a, b) => b.id - a.id);
-      // console.log('repos', this.repos);
+    this.gitService.getUserRepos(this.username.split(" ").join("")).subscribe(
+      res => {
 
-      this.repos.forEach(repo => {
-        this.gitService.getContributors(this.username.split(" ").join(""), repo.name).subscribe(res => {
-          repo.contributors = res;
-          if (repo.description !== null && repo.description !== undefined) {
-            repo.description = repo.description.replace(/(https?:\/\/[^\s]+)/g, "LINK")
+        // console.log(res);
 
-          }
+        this.repos = res.body;
+        this.repos.sort((a, b) => b.id - a.id);
 
-          // console.log(repo.stargazers_count);
-          // console.log('contributors' , repo.name + " - " + repo.contributors.length);
-
-
-        });
+        if (this.repos) {
+          this.getContributors();
+        }
+        // console.log('repos', this.repos);
 
       });
-    });
 
+  }
+
+  getContributors(): void {
+
+    this.repos.forEach(repo => {
+      this.gitService.getContributors(this.username.split(" ").join(""), repo.name).subscribe(res => {
+        // console.log(res);
+
+        repo.contributors = res.body;
+
+        if (repo.description !== null && repo.description !== undefined) {
+          repo.description = repo.description.replace(/(https?:\/\/[^\s]+)/g, "LINK")
+        }
+
+        // console.log(repo.stargazers_count);
+        // console.log('contributors' , repo.name + " - " + repo.contributors.length);
+
+
+      });
+
+    });
   }
 
 }

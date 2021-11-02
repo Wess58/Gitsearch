@@ -6,18 +6,17 @@ import { RepoComponent } from './repo/repo.component';
 import { GitService } from './gity/git.service';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { RoutingModule } from './routing/routing.module';
-import { PriceDirective } from './price.directive';
-import { PropPipe } from './prop.pipe';
 import { NgProgressModule } from '@ngx-progressbar/core';
 import { NgProgressHttpModule } from '@ngx-progressbar/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpTokenInterceptor } from './interceptors/http.token.interceptor';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     RepoComponent,
     NotFoundComponent,
-    PriceDirective,
-    PropPipe
 
   ],
   imports: [
@@ -25,9 +24,11 @@ import { NgProgressHttpModule } from '@ngx-progressbar/http';
     HttpModule,
     RoutingModule,
     NgProgressModule.forRoot(),// normal progress bar
-    NgProgressHttpModule // progress bar to load http requests
+    NgProgressHttpModule, // progress bar to load http requests
+    HttpClientModule
   ],
-  providers: [GitService],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -43,7 +43,7 @@
         </div>
 
         <div>
-          <p *ngIf="profile.blog.length != 0">
+          <p *ngIf="profile?.blog?.length !== 0">
             <i class="fa fa-id-card mr-2"></i>
             Visit {{profile.name == null ? profile.login : profile.name}}'s
             <a href="{{profile.blog}}" target="_blank"> Portfolio</a>
@@ -100,12 +100,9 @@
       <h3 class="font-weight-bold text-muted ml-2 repo-header">Repositories</h3>
 
 
-
-
-      <div class="loader" *ngIf="loading">Loading...</div>
+      <div class="loader" *ngIf="loading"></div>
 
       <div *ngIf="!loading">
-
 
         <div class="row">
           <div class="col-md-4" *ngFor="let repo of repos">
@@ -152,7 +149,8 @@
                 <span>
                   <i class="fas fa-user mr-2"></i>
                 </span>
-                <span>{{repo.contributors?.length > 1 ? repo.contributors?.length + ' Contributors' : repo.contributors?.length + ' Contributor'}}</span>
+                <span *ngIf="repo.contributors">{{repo.contributors?.length === 1 ? repo.contributors?.length + ' Contributor' : repo.contributors?.length + ' Contributors'}}</span>
+                <span *ngIf="!repo.contributors">No contributors</span>
               </div>
 
 
