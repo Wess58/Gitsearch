@@ -81,10 +81,10 @@ export class RepoComponent implements OnInit {
 
         this.repos = res.body;
 
-        if (this.repos) {
-          this.getContributors();
-        }
-        
+        // if (this.repos) {
+        //   this.getContributors();
+        // }
+
         this.repos.sort((a, b) => b.id - a.id);
 
 
