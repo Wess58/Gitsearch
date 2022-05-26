@@ -36,8 +36,8 @@ export class HttpTokenInterceptor implements HttpInterceptor {
     });
 
     return next.handle(request).pipe(catchError(err => {
-      const error = err.error.message || err.statusText;
-      return throwError(error);
+      // const error = err.error.message || err.statusText;
+      return throwError(err);
     }));
   }
 
