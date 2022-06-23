@@ -25,7 +25,7 @@ export class RepoComponent implements OnInit {
 
   profile: any;
   repos: any;
-  username: string = 'fatahrez';
+  username: string = 'wess58';
   error: Boolean = false;
   loading = false;
   usersList: any;
