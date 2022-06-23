@@ -9,21 +9,20 @@
       </div>
     </div>
     <div class="col-md-4 d-none d-sm-none d-md-block">
-      version 3.3.0
+      version 3.4.0
     </div>
   </div>
 
 
-
   <div class="row justify-content-center mb-2">
     <div class="search d-block">
-      <input type="text" class="searchTerm" [ngClass]="{'redBorder':error}" placeholder="Who are you looking for?" id="special" [(ngModel)]="username" #user="ngModel" name="username" (keyup)="searchUsers()" autocomplete="off">
+      <input type="text" class="searchTerm" [ngClass]="{'redBorder':searchError}" placeholder="Who are you looking for?" id="special" name="username" [(ngModel)]="username" (ngModelChange)="searchUsers()" autocomplete="off">
       <span class="searchButton" (click)="searchUsers()">
         <i class="fa fa-search"></i>
       </span>
 
-      <div class="search-listing" *ngIf="usersList && open">
-        <div class="list-item" *ngFor="let user of usersList;index as i" (click)="username = user.login;usersList = '';repos = '';getUser()">
+      <div class="search-listing" *ngIf="usersList && usersList?.length && open">
+        <div class="list-item" *ngFor="let user of usersList;index as i" (click)="username = user.login;getUser()">
           <img src="{{user.avatar_url}}" alt="Profile Image">
 
           <span> {{user.name == null ? user.login : user.name}}</span>
@@ -31,9 +30,9 @@
         </div>
       </div>
     </div>
-
   </div>
-  <div class="text-center redText" *ngIf="error">
+
+  <div class="text-center redText" *ngIf="(searchError && !loadingUsers) ||  (!loadingUsers && username && usersList && !usersList?.length)">
     <i>user not found</i>
   </div>
 
@@ -52,25 +51,22 @@
         <img src="{{profile.avatar_url}}" alt="Profile Image">
 
         <h3> {{profile.name == null ? profile.login : profile.name}}</h3>
-        <!-- <h3>{{profile.name}}</h3> -->
-        <!-- <h5 *ngIf="profile.email">{{profile.email}}</h5> -->
 
         <div *ngIf="profile.bio != null">
           <h6><strong>BIO</strong></h6>
           <p class="bio">{{profile.bio}}</p>
         </div>
 
-        <div>
-          <p *ngIf="profile?.blog?.length !== 0">
-            <i class="fa fa-id-card mr-2"></i>
-            Visit {{profile.name == null ? profile.login : profile.name}}'s
-            <a href="{{profile.blog}}" target="_blank"> Portfolio</a>
-          </p>
-        </div>
+        <p *ngIf="profile?.blog?.length !== 0">
+          <i class="fa fa-id-card mr-2"></i>
+          Visit {{profile.name == null ? profile.login : profile.name}}'s
+          <a href="{{profile.blog}}" target="_blank"> Portfolio</a>
+        </p>
 
-        <p *ngIf="profile.location != null ">
+        <p *ngIf="profile.location">
           <i class="fa fa-map-marker-alt mr-2"></i>{{profile.location}}
         </p>
+
         <p>
           <i class="fab fa-github-square mr-2"></i>
           <span>Visit {{profile.name == null ? profile.login : profile.name}}'s Github</span>
@@ -88,17 +84,17 @@
         <div class="stats-holder">
           <div class="user-stats">
             <strong><i class="fa fa-archive mr-2 hide-ms"></i>Repositories</strong>
-            <span>{{profile.public_repos}}</span>
+            <span>{{profile.public_repos | countChecker}}</span>
 
           </div>
           <div class="user-stats">
             <strong><i class="fas fa-user-circle mr-2 hide-ms"></i>Following</strong>
-            <span>{{profile.following}}</span>
+            <span>{{profile.following | countChecker}}</span>
 
           </div>
           <div class="user-stats">
             <strong><i class="fas fa-user-circle mr-2 hide-ms"></i>Followers</strong>
-            <span>{{profile.followers}}</span>
+            <span>{{profile.followers | countChecker}}</span>
           </div>
         </div>
 
@@ -115,12 +111,12 @@
 
 
 
-      <h3 class="font-weight-bold text-muted ml-2 repo-header">Repositories <small *ngIf="repos">({{repos?.length}})</small></h3>
+      <h3 class="font-weight-bold text-muted ml-2 repo-header">Repositories <small *ngIf="repos?.length">({{repos?.length}})</small></h3>
 
 
       <div class="loader" *ngIf="loading"></div>
 
-      <div *ngIf="!loading">
+      <div *ngIf="!loading && repos?.length">
 
         <div class="row">
           <div class="col-md-4" *ngFor="let repo of repos">
@@ -155,7 +151,7 @@
               </div>
 
 
-              <div class="d-inline repo-date mb-1">
+              <div class="d-inline repo-date mb-1 mt-auto">
                 <span>
                   <i class="fas fa-file-alt mr-2"></i>
                 </span>
@@ -184,17 +180,14 @@
                 </span>
               </div>
 
-              <div class="row mt-3">
-                <div class="col-6 col-md-6">
-                  <a role="button" class="btn btn-md git-btn" href="{{repo.html_url}}" target="_blank">
-                    Github
-                  </a>
-                </div>
-                <div class="col-6 col-md-6 text-right">
-                  <a href="{{repo.homepage}}" target="_blank" role="button" class="btn btn-md live-btn" *ngIf="repo.homepage">
-                    Live site
-                  </a>
-                </div>
+              <div class="action-buttons mt-2">
+                <a role="button" class="btn btn-md git-btn" href="{{repo.html_url}}" target="_blank">
+                  Github
+                </a>
+
+                <a href="{{repo.homepage}}" target="_blank" role="button" class="btn btn-md live-btn" *ngIf="repo.homepage">
+                  Live site
+                </a>
               </div>
             </div>
           </div>

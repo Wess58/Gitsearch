@@ -17,7 +17,7 @@ export class RepoComponent implements OnInit {
       } else {
         this.open = false;
       }
-    }else{
+    } else {
       this.open = false;
     }
 
@@ -25,11 +25,13 @@ export class RepoComponent implements OnInit {
 
   profile: any;
   repos: any;
-  username: string = 'wess58';
+  username: string = 'fatahrez';
   error: Boolean = false;
   loading = false;
   usersList: any;
   open = false;
+  searchError = false;
+  loadingUsers = false;
   // contributors:any[] = [];
   //
 
@@ -49,55 +51,62 @@ export class RepoComponent implements OnInit {
 
   getUser() {
     // console.log('username', this.username);
-    this.loading = true;
 
-    this.gitService.getProfileInfo(this.username.split(" ").join("")).subscribe(
-      res => {
+    const username = this.username.split(" ").join("").trim();
 
-        // console.log(res);
+    if (username) {
+      this.gitService.getProfileInfo(username).subscribe(
+        (res) => {
 
-        this.profile = res.body;
-        this.getRepos();
+          // console.log(res);
 
-        this.loading = false;
-        this.error = false;
+          this.profile = res.body;
+          this.getRepos(username);
 
-      },
-      (error) => {
-        this.error = true;
-        // console.log('error', this.error);
+          this.error = false;
 
-      });
+        },
+        (error) => {
+          this.error = true;
+          // console.log('error', this.error);
+
+        });
+    }
 
 
 
   }
 
-  getRepos(): void {
-    this.gitService.getUserRepos(this.username.split(" ").join("")).subscribe(
-      res => {
+  getRepos(username: string): void {
+    this.loading = true;
 
+    this.repos = [];
+    this.gitService.getUserRepos(username).subscribe(
+      res => {
         // console.log(res);
 
         this.repos = res.body;
+        this.repos.sort((a, b) => b.id - a.id);
 
         // if (this.repos) {
         //   this.getContributors();
         // }
-
-        this.repos.sort((a, b) => b.id - a.id);
-
-
         // console.log('repos', this.repos);
 
-      });
+      },
+      (error) => { },
+      () => {
+        this.loading = false;
+
+      }
+    );
 
   }
 
   getContributors(): void {
 
     this.repos.forEach(repo => {
-      this.gitService.getContributors(this.username.split(" ").join(""), repo.name).subscribe(res => {
+      this.gitService.getContributors(this.username.split(" ").join("").trim(), repo.name).subscribe(res => {
         // console.log(res);
 
         repo.contributors = res.body;
@@ -105,7 +114,6 @@ export class RepoComponent implements OnInit {
         if (repo.description !== null && repo.description !== undefined) {
           repo.description = repo.description.replace(/(https?:\/\/[^\s]+)/g, "LINK")
         }
-
         // console.log(repo.stargazers_count);
         // console.log('contributors' , repo.name + " - " + repo.contributors.length);
 
@@ -117,25 +125,31 @@ export class RepoComponent implements OnInit {
 
   searchUsers() {
     // console.log('username', this.username);
+    this.searchError = false;
 
-    this.gitService.searchUsers(this.username.split(" ").join("")).subscribe(
-      res => {
+    const username = this.username.split(" ").join("").trim();
 
-        console.log(res);
+    if (username) {
+      this.usersList = [];
+      this.loadingUsers = true;
 
-        this.usersList = res.body.items;
+      this.gitService.searchUsers(username).subscribe(
+        (res) => {
+          // console.log(res);
 
-        this.loading = false;
-        this.error = false;
+          this.searchError = false;
+          this.usersList = res.body.items;
 
-      },
-      (error) => {
-        this.error = true;
-        // console.log('error', this.error);
+        },
+        (error) => {
+          this.searchError = true;
+          // console.log('error', this.error);
+        },
+        () => {
+          this.loadingUsers = false;
 
-      });
-
-
+        });
+    }
 
   }
 
