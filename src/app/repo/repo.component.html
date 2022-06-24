@@ -16,25 +16,31 @@
 
   <div class="row justify-content-center mb-2">
     <div class="search d-block">
-      <input type="text" class="searchTerm" [ngClass]="{'redBorder':searchError}" placeholder="Who are you looking for?" id="special" name="username" [(ngModel)]="username" (ngModelChange)="searchUsers()" autocomplete="off">
+      <input type="text" class="searchTerm" [ngClass]="{'redBorder':(searchError && !loadingUsers) ||  (!loadingUsers && username && usersList && !usersList?.length) }" placeholder="Who are you looking for?" id="special" name="username"
+        [(ngModel)]="username" (ngModelChange)="searchUsers()" autocomplete="off">
       <span class="searchButton" (click)="searchUsers()">
         <i class="fa fa-search"></i>
       </span>
 
-      <div class="search-listing" *ngIf="usersList && usersList?.length && open">
+      <div class="search-listing" *ngIf="usersList && usersList?.length && open && username">
         <div class="list-item" *ngFor="let user of usersList;index as i" (click)="username = user.login;getUser()">
           <img src="{{user.avatar_url}}" alt="Profile Image">
 
           <span> {{user.name == null ? user.login : user.name}}</span>
 
         </div>
+
+      </div>
+
+      <div class="search-listing" *ngIf="(searchError && !loadingUsers) ||  (!loadingUsers && username && usersList && !usersList?.length)">
+        <div class="text-center redText list-item py-3">
+          <i>user not found</i>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="text-center redText" *ngIf="(searchError && !loadingUsers) ||  (!loadingUsers && username && usersList && !usersList?.length)">
-    <i>user not found</i>
-  </div>
+
 
 </nav>
 

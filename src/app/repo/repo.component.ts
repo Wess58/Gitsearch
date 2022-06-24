@@ -125,13 +125,14 @@ export class RepoComponent implements OnInit {
 
   searchUsers() {
     // console.log('username', this.username);
-    this.searchError = false;
 
     const username = this.username.split(" ").join("").trim();
 
     if (username) {
       this.usersList = [];
       this.loadingUsers = true;
+      this.searchError = false;
+
 
       this.gitService.searchUsers(username).subscribe(
         (res) => {
