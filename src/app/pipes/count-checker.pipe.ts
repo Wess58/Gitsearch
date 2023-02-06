@@ -8,7 +8,7 @@ export class CountCheckerPipe implements PipeTransform {
   transform(value: any, args?: any[]): any {
 
     value = value.toString();
-    console.log(value);
+    // console.log(value);
 
 
     if (value.length > 6) {

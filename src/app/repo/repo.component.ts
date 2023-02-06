@@ -1,11 +1,24 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { style, animate, transition, trigger } from '@angular/animations';
+import { fromEvent } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+
 import { GitService } from '../gity/git.service';
 
 @Component({
   selector: 'app-repo',
   templateUrl: './repo.component.html',
-  styleUrls: ['./repo.component.css']
+  styleUrls: ['./repo.component.css'],
+  animations: [
+    trigger('fadeIn', [
+      transition(':enter', [
+        // :enter is alias to 'void => *'
+        style({ opacity: 0 }),
+        animate(500, style({ opacity: 1 })),
+      ]),
+    ]),
+  ],
 })
 export class RepoComponent implements OnInit {
   @HostListener('document:click', ['$event']) onClick(event: any) {
@@ -35,6 +48,7 @@ export class RepoComponent implements OnInit {
   // contributors:any[] = [];
   //
 
+  @ViewChild('searchUserInput') searchUserInput: ElementRef;
 
 
   constructor(
@@ -49,32 +63,35 @@ export class RepoComponent implements OnInit {
 
   }
 
-  getUser() {
+  ngAfterViewInit(): void {
+    fromEvent(this.searchUserInput.nativeElement, 'input')
+      .pipe(map((event: Event) => (event.target as HTMLInputElement).value))
+      .pipe(debounceTime(1000))
+      .pipe(distinctUntilChanged())
+      .subscribe(data => this.searchUsers());
+  }
+
+
+
+  getUser(): void {
     // console.log('username', this.username);
 
     const username = this.username.split(" ").join("").trim();
 
     if (username) {
       this.gitService.getProfileInfo(username).subscribe(
-        (res) => {
-
+        (res: any) => {
           // console.log(res);
-
+          this.error = false;
           this.profile = res.body;
           this.getRepos(username);
 
-          this.error = false;
-
         },
-        (error) => {
+        (error: any) => {
           this.error = true;
           // console.log('error', this.error);
-
         });
     }
-
-
-
   }
 
   getRepos(username: string): void {
@@ -123,10 +140,10 @@ export class RepoComponent implements OnInit {
     });
   }
 
-  searchUsers() {
+  searchUsers(): void {
     // console.log('username', this.username);
 
-    const username = this.username.split(" ").join("").trim();
+    const username = this.username.replace(/\s/g, '').trim();
 
     if (username) {
       this.usersList = [];
@@ -135,14 +152,14 @@ export class RepoComponent implements OnInit {
 
 
       this.gitService.searchUsers(username).subscribe(
-        (res) => {
+        (res: any) => {
           // console.log(res);
 
           this.searchError = false;
           this.usersList = res.body.items;
 
         },
-        (error) => {
+        (error: any) => {
           this.searchError = true;
           // console.log('error', this.error);
         },

@@ -1,42 +1,40 @@
-<nav class="container-fluid fixed-top px-5 py-0" align="center">
+<nav class="container-fluid fixed-top px-5 py-0" align="center" [@fadeIn]>
 
   <div class="row top mt-3">
-    <div class="col-md-8">
+    <div class="col-md-4 pl-0">
       <div class="d-flex">
-        <h1>GIT-SEARCH WEB APP</h1>
+        <h1>GIT-SEARCH APP</h1>
         <img src="assets/images/github.svg" class="d-none d-sm-none d-md-inline">
-
       </div>
     </div>
-    <div class="col-md-4 d-none d-sm-none d-md-block">
-      version 3.4.1
-    </div>
-  </div>
+    <div class="col-md-4">
+      <div class="search d-block">
+        <input type="text" #searchUserInput class="searchTerm" [ngClass]="{'redBorder':(searchError && !loadingUsers) ||  (!loadingUsers && username && usersList && !usersList?.length) }" placeholder="Who are you looking for?" id="special" name="name"
+          [(ngModel)]="username"  autocomplete="off">
+          <!-- (ngModelChange)="searchUsers()" -->
+        <span class="searchButton" (click)="searchUsers()">
+          <i class="fa fa-search"></i>
+        </span>
 
+        <div class="search-listing" *ngIf="usersList && usersList?.length && open && username">
+          <div class="list-item" *ngFor="let user of usersList;index as i" (click)="username = user.login;getUser()">
+            <img src="{{user.avatar_url}}" alt="Profile Image">
 
-  <div class="row justify-content-center mb-2">
-    <div class="search d-block">
-      <input type="text" class="searchTerm" [ngClass]="{'redBorder':(searchError && !loadingUsers) ||  (!loadingUsers && username && usersList && !usersList?.length) }" placeholder="Who are you looking for?" id="special" name="username"
-        [(ngModel)]="username" (ngModelChange)="searchUsers()" autocomplete="off">
-      <span class="searchButton" (click)="searchUsers()">
-        <i class="fa fa-search"></i>
-      </span>
+            <span> {{user.name == null ? user.login : user.name}}</span>
 
-      <div class="search-listing" *ngIf="usersList && usersList?.length && open && username">
-        <div class="list-item" *ngFor="let user of usersList;index as i" (click)="username = user.login;getUser()">
-          <img src="{{user.avatar_url}}" alt="Profile Image">
-
-          <span> {{user.name == null ? user.login : user.name}}</span>
+          </div>
 
         </div>
 
-      </div>
-
-      <div class="search-listing" *ngIf="(searchError && !loadingUsers) ||  (!loadingUsers && username && usersList && !usersList?.length)">
-        <div class="text-center redText list-item py-3">
-          <i>user not found</i>
+        <div class="search-listing" *ngIf="(searchError && !loadingUsers) ||  (!loadingUsers && username && usersList && !usersList?.length)" [@fadeIn]>
+          <div class="text-center redText list-item py-3">
+            <i>user not found</i>
+          </div>
         </div>
       </div>
+    </div>
+    <div class="col-md-4 text-right d-none d-sm-none d-md-block pt-3 pr-0">
+      version 3.4.2
     </div>
   </div>
 
@@ -44,15 +42,15 @@
 
 </nav>
 
-<div class="container-fluid contData px-5">
+<div class="container-fluid contData px-3">
 
-  <div class="row" id="profile" *ngIf="profile">
+  <div class="row" id="profile" *ngIf="profile" [@fadeIn]>
 
     <div class="col-md-3">
 
       <h3 style="position:fixed;" class="ml-3 font-weight-bold text-muted d-none d-sm-none d-md-block">Profile</h3>
 
-      <div class="card keyInfoCard my-5 px-3 pb-3">
+      <div class="card keyInfoCard px-3 pb-3">
 
         <img src="{{profile.avatar_url}}" alt="Profile Image">
 
@@ -117,12 +115,14 @@
 
 
 
-      <h3 class="font-weight-bold text-muted ml-2 repo-header">Repositories <small *ngIf="repos?.length">({{repos?.length}})</small></h3>
+      <h3 class="font-weight-bold text-muted ml-2 repo-header">Repositories
+         <!-- <small *ngIf="repos?.length">({{repos?.length}})</small> -->
+       </h3>
 
 
-      <div class="loader" *ngIf="loading"></div>
+      <div class="loader" *ngIf="loading" [@fadeIn]></div>
 
-      <div *ngIf="!loading && repos?.length">
+      <div *ngIf="!loading && repos?.length" [@fadeIn]>
 
         <div class="row">
           <div class="col-md-4" *ngFor="let repo of repos">
