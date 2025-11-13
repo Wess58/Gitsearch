@@ -15,16 +15,20 @@ export class GitService {
     return this.http.get<any>("https://api.github.com/users/" + name, { observe: 'response' });
   }
 
-  getUserRepos(name: string) {
-    return this.http.get<any>("https://api.github.com/users/" + name + '/repos?per_page=150', { observe: 'response' });
+  getUserRepos(name: string, options: any) {
+    return this.http.get<any>("https://api.github.com/users/" + name + '/repos', { observe: 'response', params: options });
   }
 
   getContributors(name: string, repo: string) {
     return this.http.get<any>("https://api.github.com/repos/" + name + "/" + repo + "/contributors", { observe: 'response' });
   }
 
-  searchUsers(name:string){
-    return this.http.get<any>("https://api.github.com/search/users?q=" + name , { observe: 'response' });
+  getLanguages(link: string) {
+    return this.http.get<any>(link, { observe: 'response' });
+  }
+
+  searchUsers(name: string) {
+    return this.http.get<any>("https://api.github.com/search/users?q=" + name, { observe: 'response' });
 
   }
 }

@@ -23,6 +23,7 @@
     "@fortawesome/fontawesome-free": "^5.15.4",
     "bootstrap": "^4.6.1",
     "core-js": "^2.5.4",
+    "ngx-pagination": "^3.2.1",
     "rxjs": "~6.2.0",
     "zone.js": "~0.8.26"
   },

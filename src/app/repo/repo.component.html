@@ -9,9 +9,10 @@
     </div>
     <div class="col-md-4">
       <div class="search d-block">
-        <input type="text" #searchUserInput class="searchTerm" [ngClass]="{'redBorder':(searchError && !loadingUsers) ||  (!loadingUsers && username && usersList && !usersList?.length) }" placeholder="Who are you looking for?" id="special" name="name"
-          [(ngModel)]="username"  autocomplete="off">
-          <!-- (ngModelChange)="searchUsers()" -->
+        <input type="text" #searchUserInput class="searchTerm"
+          [ngClass]="{'redBorder':(searchError && !loadingUsers) ||  (!loadingUsers && username && usersList && !usersList?.length) }"
+          placeholder="Who are you looking for?" id="special" name="name" [(ngModel)]="username" autocomplete="off">
+        <!-- (ngModelChange)="searchUsers()" -->
         <span class="searchButton" (click)="searchUsers()">
           <i class="fa fa-search"></i>
         </span>
@@ -26,7 +27,9 @@
 
         </div>
 
-        <div class="search-listing" *ngIf="(searchError && !loadingUsers) ||  (!loadingUsers && username && usersList && !usersList?.length)" [@fadeIn]>
+        <div class="search-listing"
+          *ngIf="(searchError && !loadingUsers) ||  (!loadingUsers && username && usersList && !usersList?.length)"
+          [@fadeIn]>
           <div class="text-center redText list-item py-3">
             <i>user not found</i>
           </div>
@@ -34,7 +37,7 @@
       </div>
     </div>
     <div class="col-md-4 text-right d-none d-sm-none d-md-block pt-3 pr-0">
-      version 3.4.2
+      version 3.5.0
     </div>
   </div>
 
@@ -44,7 +47,7 @@
 
 <div class="container-fluid contData px-3">
 
-  <div class="row" id="profile" *ngIf="profile" [@fadeIn]>
+  <div class="row justify-content-between" id="profile" *ngIf="profile" [@fadeIn]>
 
     <div class="col-md-3">
 
@@ -106,18 +109,11 @@
 
     </div>
 
-    <div class="col-0 col-md-1">
-
-    </div>
-
     <div class="col-md-8">
 
-
-
-
       <h3 class="font-weight-bold text-muted ml-2 repo-header">Repositories
-         <!-- <small *ngIf="repos?.length">({{repos?.length}})</small> -->
-       </h3>
+        <small *ngIf="repos?.length" class="ml-2">({{profile.public_repos }} repos)</small>
+      </h3>
 
 
       <div class="loader" *ngIf="loading" [@fadeIn]></div>
@@ -125,10 +121,9 @@
       <div *ngIf="!loading && repos?.length" [@fadeIn]>
 
         <div class="row">
-          <div class="col-md-4" *ngFor="let repo of repos">
+          <div class="col-md-4"
+            *ngFor="let repo of repos | paginate: { itemsPerPage: 50, currentPage: page,totalItems:profile.public_repos }">
             <div class="card repo-card">
-
-
 
               <div class="row">
 
@@ -137,11 +132,11 @@
 
                 </div>
 
-                <div class="col-2 col-md-2">
+                <div class="col-2 col-md-2 pr-0 position-relative">
                   <span *ngIf="repo.fork">
                     <i class="fas fa-cookie-bite"></i>
                     <span class="tultip">
-                      forked repository
+                      Forked repo
                     </span>
                   </span>
 
@@ -152,7 +147,9 @@
 
               <div class="desc-div mb-2">
 
-                <p class="repo-desc"> {{repo.description === null || repo.description === undefined ? '—' : repo.description | slice :0 :70}} <span style="font-size:1.1rem;">{{repo.description?.length > 70 ? '&hellip;' : ''}}</span> </p>
+                <p class="repo-desc" [ngClass]="{'font-italic':!repo.description}"> {{ !repo.description ? 'No desciption' :
+                  repo.description | slice :0 :80}}<span style="font-size:1.1rem;">{{repo.description?.length > 80 ?
+                    '&hellip;' : ''}}</span> </p>
 
               </div>
 
@@ -191,12 +188,18 @@
                   Github
                 </a>
 
-                <a href="{{repo.homepage}}" target="_blank" role="button" class="btn btn-md live-btn" *ngIf="repo.homepage">
+                <a href="{{repo.homepage}}" target="_blank" role="button" class="btn btn-md live-btn"
+                  *ngIf="repo.homepage">
                   Live site
                 </a>
               </div>
             </div>
           </div>
+        </div>
+
+        <div class="pagination-container" align="center" class="mt-5" *ngIf="profile.public_repos > 30" [@fadeIn]>
+          <pagination-controls (pageChange)="getRepos((page = $event))" [maxSize]="7" previousLabel=""
+            nextLabel=""></pagination-controls>
         </div>
 
       </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { style, animate, transition, trigger } from '@angular/animations';
 import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
@@ -24,15 +24,17 @@ export class RepoComponent implements OnInit {
   @HostListener('document:click', ['$event']) onClick(event: any) {
     // console.log(event.target.attributes);
 
-    if (event.target.attributes.id) {
-      if (event.target.attributes.id.nodeValue === 'special') {
-        this.open = true;
-      } else {
-        this.open = false;
-      }
-    } else {
-      this.open = false;
-    }
+    this.open = event.target.attributes.id && event.target.attributes.id.nodeValue === 'special';
+
+    // if (event.target.attributes.id) {
+    //   if (event.target.attributes.id.nodeValue === 'special') {
+    //     this.open = true;
+    //   } else {
+    //     this.open = false;
+    //   }
+    // } else {
+    //   this.open = false;
+    // }
 
   }
 
@@ -45,21 +47,24 @@ export class RepoComponent implements OnInit {
   open = false;
   searchError = false;
   loadingUsers = false;
-  // contributors:any[] = [];
-  //
+  page: number = 1;
+  totalLength:number = 0;
 
   @ViewChild('searchUserInput') searchUserInput: ElementRef;
 
 
   constructor(
     public gitService: GitService,
-    protected route: ActivatedRoute
+    public router: Router,
+    private activatedRoute: ActivatedRoute,
   ) { }
 
 
   ngOnInit() {
 
     this.getUser();
+    this.page = +this.activatedRoute.snapshot.queryParams['page'] || 1;
+    this.username = this.activatedRoute.snapshot.queryParams['name'] || 'wess58';
 
   }
 
@@ -74,7 +79,6 @@ export class RepoComponent implements OnInit {
 
 
   getUser(): void {
-    // console.log('username', this.username);
 
     const username = this.username.split(" ").join("").trim();
 
@@ -84,7 +88,7 @@ export class RepoComponent implements OnInit {
           // console.log(res);
           this.error = false;
           this.profile = res.body;
-          this.getRepos(username);
+          this.getRepos();
 
         },
         (error: any) => {
@@ -94,22 +98,35 @@ export class RepoComponent implements OnInit {
     }
   }
 
-  getRepos(username: string): void {
+  getRepos(page: number = 1): void {
     this.loading = true;
+    this.page = page;
 
     this.repos = [];
-    this.gitService.getUserRepos(username).subscribe(
+    const options = {
+      per_page: 30,
+      sort: 'updated',
+      type:'public',
+      page: page
+    }
+
+
+    this.router.navigate([], {
+      relativeTo: this.activatedRoute,
+      queryParams: {
+        page,
+        name: this.username.trim(),
+      },
+      queryParamsHandling: 'merge',
+      replaceUrl: !this.activatedRoute.snapshot.queryParams['page']
+    });
+
+
+    this.gitService.getUserRepos(this.username.trim(), options).subscribe(
       res => {
-        // console.log(res);
 
         this.repos = res.body;
-        this.repos.sort((a, b) => b.id - a.id);
-
-        // if (this.repos) {
-        //   this.getContributors();
-        // }
-        // console.log('repos', this.repos);
-
+       
       },
       (error) => { },
       () => {
@@ -118,26 +135,6 @@ export class RepoComponent implements OnInit {
       }
     );
 
-  }
-
-  getContributors(): void {
-
-    this.repos.forEach(repo => {
-      this.gitService.getContributors(this.username.split(" ").join("").trim(), repo.name).subscribe(res => {
-        // console.log(res);
-
-        repo.contributors = res.body;
-
-        if (repo.description !== null && repo.description !== undefined) {
-          repo.description = repo.description.replace(/(https?:\/\/[^\s]+)/g, "LINK")
-        }
-        // console.log(repo.stargazers_count);
-        // console.log('contributors' , repo.name + " - " + repo.contributors.length);
-
-
-      });
-
-    });
   }
 
   searchUsers(): void {
