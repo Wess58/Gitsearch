@@ -37,7 +37,7 @@
       </div>
     </div>
     <div class="col-md-4 text-right d-none d-sm-none d-md-block pt-3 pr-0">
-      version 3.5.0
+      version 3.5.1
     </div>
   </div>
 
@@ -122,7 +122,7 @@
 
         <div class="row">
           <div class="col-md-4"
-            *ngFor="let repo of repos | paginate: { itemsPerPage: 30, currentPage: page,totalItems:profile.public_repos }">
+            *ngFor="let repo of repos | paginate: { itemsPerPage: itemsPerPage, currentPage: page,totalItems:profile.public_repos }">
             <div class="card repo-card">
 
               <div class="row">
@@ -197,7 +197,7 @@
           </div>
         </div>
 
-        <div class="pagination-container" align="center" class="mt-5" *ngIf="profile.public_repos > 30" [@fadeIn]>
+        <div class="pagination-container" align="center" class="mt-5" *ngIf="profile.public_repos > itemsPerPage" [@fadeIn]>
           <pagination-controls (pageChange)="getRepos((page = $event))" [maxSize]="7" previousLabel=""
             nextLabel=""></pagination-controls>
         </div>
