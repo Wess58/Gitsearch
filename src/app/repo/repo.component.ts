@@ -49,6 +49,7 @@ export class RepoComponent implements OnInit {
   loadingUsers = false;
   page: number = 1;
   totalLength:number = 0;
+  itemsPerPage:number = 30;
 
   @ViewChild('searchUserInput') searchUserInput: ElementRef;
 
@@ -104,7 +105,7 @@ export class RepoComponent implements OnInit {
 
     this.repos = [];
     const options = {
-      per_page: 30,
+      per_page: this.itemsPerPage,
       sort: 'updated',
       type:'public',
       page: page
